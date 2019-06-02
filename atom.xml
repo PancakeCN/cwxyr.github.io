@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Sublime</title>
   
-  <subtitle>——一个程序员的进阶之路</subtitle>
+  <subtitle>一个程序员的进阶之路</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cwxyr.github.io/"/>
