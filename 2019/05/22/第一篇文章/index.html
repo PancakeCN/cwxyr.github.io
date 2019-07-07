@@ -428,13 +428,13 @@
       <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
       
       
+      
+      
         <section id="comments">
-          <div id="lv-container" data-id="city" data-uid="MTAyMC80NDcyNS8yMTI0OQ==">
-            <noscript><div><i class="fas fa-exclamation-triangle">&nbsp;无法加载Livere评论系统，请确保您的网络能够正常访问。</i></div></noscript>
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
           </div>
         </section>
-      
-      
       
     </section>
   </article>
@@ -758,19 +758,38 @@
 
 
 
-  <script type="text/javascript">
-    (function(d, s) {
-      var j, e = d.getElementsByTagName(s)[0];
-      if (typeof LivereTower === 'function') { return; }
-      j = d.createElement(s);
-      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-      j.async = true;
-      e.parentNode.insertBefore(j, e);
-    })(document, 'script');
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "NUIvWmBVy0NYRGpzYbzFaK5b-gzGzoHsz",
+    appKey: "hpOy65rB00YTyHxaVmx93woY",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'identicon',
+    lang:'zh-cn',
+    highlight:'true'
+  })
   </script>
-
-
-
 
 
 
