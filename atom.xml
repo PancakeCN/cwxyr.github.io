@@ -18,8 +18,8 @@
   
   <entry>
     <title>你好鸭~</title>
-    <link href="http://cwxyr.github.io/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0.html"/>
-    <id>http://cwxyr.github.io/第一篇文章.html</id>
+    <link href="http://cwxyr.github.io/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+    <id>http://cwxyr.github.io/第一篇文章/</id>
     <published>2019-05-21T17:06:02.000Z</published>
     <updated>2019-07-08T15:36:46.805Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://cwxyr.github.io/hello-world.html"/>
-    <id>http://cwxyr.github.io/hello-world.html</id>
+    <link href="http://cwxyr.github.io/hello-world/"/>
+    <id>http://cwxyr.github.io/hello-world/</id>
     <published>2019-05-21T16:48:57.587Z</published>
     <updated>2019-05-21T16:48:57.587Z</updated>
     
