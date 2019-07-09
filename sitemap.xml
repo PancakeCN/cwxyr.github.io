@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://cwxyr.github.io/2019/05/22/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</loc>
+    <loc>http://cwxyr.github.io/project/index.html</loc>
     
-    <lastmod>2019-07-08T15:36:46.805Z</lastmod>
+    <lastmod>2019-07-09T08:23:23.450Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://cwxyr.github.io/friends/index.html</loc>
     
-    <lastmod>2019-07-08T13:45:35.501Z</lastmod>
+    <lastmod>2019-07-09T08:08:48.626Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://cwxyr.github.io/categories/index.html</loc>
+    
+    <lastmod>2019-07-09T08:01:52.506Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://cwxyr.github.io/2019/05/22/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</loc>
+    
+    <lastmod>2019-07-08T15:36:46.805Z</lastmod>
     
   </url>
   
@@ -33,13 +47,6 @@
     <loc>http://cwxyr.github.io/tags/index.html</loc>
     
     <lastmod>2019-07-08T13:40:48.890Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cwxyr.github.io/categories/index.html</loc>
-    
-    <lastmod>2019-07-08T13:40:08.497Z</lastmod>
     
   </url>
   
