@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cwxyr.github.io/"/>
-  <updated>2019-07-09T13:12:57.861Z</updated>
+  <updated>2019-07-18T08:10:06.136Z</updated>
   <id>http://cwxyr.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2019电赛准备阶段学习总结</title>
+    <link href="http://cwxyr.github.io/archives/f10b0e1a.html"/>
+    <id>http://cwxyr.github.io/archives/f10b0e1a.html</id>
+    <published>2019-07-18T07:53:45.000Z</published>
+    <updated>2019-07-18T08:10:06.136Z</updated>
+    
+    <content type="html"><![CDATA[<p>2019.7.18</p><p>最近，我们组在紧张地准备电赛测控四旋翼无人机的题目，在准备过程中，我们购买了无名创新的TM4C123的飞控，正在研究源码和视觉模块的运用。<br><br>无名创新的飞控是开源的，在B站上面有对应的讲解视频，涉及操作类和代码讲解类的视频，下面附上其网址：<br></p><p>无名科创开源飞控QQ群：540707961<br><br>CSDN博客：<a href="http://blog.csdn.net/u011992534" target="_blank" rel="noopener">http://blog.csdn.net/u011992534</a><br><br>优酷ID：NamelessCotrun无名小哥<br><br>B站教学视频：<a href="https://space.bilibili.com/67803559/#/video" target="_blank" rel="noopener">https://space.bilibili.com/67803559/#/video</a><br><br>客户使用心得、改进意见征集贴：<a href="http://www.openedv.com/forum.php?mod=viewthread&tid=234214&extra=page=1" target="_blank" rel="noopener">http://www.openedv.com/forum.php?mod=viewthread&tid=234214&extra=page=1</a><br><br>淘宝店铺：<a href="https://shop348646912.taobao.com/?spm=2013.1.1000126.2.5ce78a88ht1sO2" target="_blank" rel="noopener">https://shop348646912.taobao.com/?spm=2013.1.1000126.2.5ce78a88ht1sO2</a><br><br>百度贴吧:无名科创开源飞控<br><br>公司官网:<a href="https://www.nameless.tech" target="_blank" rel="noopener">https://www.nameless.tech</a><br></p><p>我们组在学习的过程中，按照老师给的建议，决定采用外加一个TM4C123的控制板作为模拟的遥控器（即脱掉遥控器自主飞行降落），其中，无名的飞控是采用PPM信号编码和解码的方式，为了模仿遥控器的信号，我们参考了网上的一些文档，觉得十分有用：</p><h3 id="PPM原理和代码"><a href="#PPM原理和代码" class="headerlink" title="PPM原理和代码"></a>PPM原理和代码</h3><p><a href="https://blog.csdn.net/Aaron_Suen/article/details/79416477" target="_blank" rel="noopener">https://blog.csdn.net/Aaron_Suen/article/details/79416477</a><br><br><a href="https://blog.csdn.net/yibu_refresh/article/details/45752131" target="_blank" rel="noopener">https://blog.csdn.net/yibu_refresh/article/details/45752131</a><br></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2019.7.18&lt;/p&gt;
+&lt;p&gt;最近，我们组在紧张地准备电赛测控四旋翼无人机的题目，在准备过程中，我们购买了无名创新的TM4C123的飞控，正在研究源码和视觉模块的运用。&lt;br&gt;&lt;br&gt;无名创新的飞控是开源的，在B站上面有对应的讲解视频，涉及操作类和代码讲解类的视频，下面
+      
+    
+    </summary>
+    
+      <category term="培训学习" scheme="http://cwxyr.github.io/categories/%E5%9F%B9%E8%AE%AD%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>你好鸭~</title>

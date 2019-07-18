@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2019电赛准备阶段学习总结]]></title>
+    <url>%2Farchives%2Ff10b0e1a.html</url>
+    <content type="text"><![CDATA[2019.7.18 最近，我们组在紧张地准备电赛测控四旋翼无人机的题目，在准备过程中，我们购买了无名创新的TM4C123的飞控，正在研究源码和视觉模块的运用。无名创新的飞控是开源的，在B站上面有对应的讲解视频，涉及操作类和代码讲解类的视频，下面附上其网址： 无名科创开源飞控QQ群：540707961CSDN博客：http://blog.csdn.net/u011992534优酷ID：NamelessCotrun无名小哥B站教学视频：https://space.bilibili.com/67803559/#/video客户使用心得、改进意见征集贴：http://www.openedv.com/forum.php?mod=viewthread&tid=234214&extra=page=1淘宝店铺：https://shop348646912.taobao.com/?spm=2013.1.1000126.2.5ce78a88ht1sO2百度贴吧:无名科创开源飞控公司官网:https://www.nameless.tech 我们组在学习的过程中，按照老师给的建议，决定采用外加一个TM4C123的控制板作为模拟的遥控器（即脱掉遥控器自主飞行降落），其中，无名的飞控是采用PPM信号编码和解码的方式，为了模仿遥控器的信号，我们参考了网上的一些文档，觉得十分有用： PPM原理和代码https://blog.csdn.net/Aaron_Suen/article/details/79416477https://blog.csdn.net/yibu_refresh/article/details/45752131 document.querySelectorAll('.github-emoji') .forEach(el => { if (!el.dataset.src) { return; } const img = document.createElement('img'); img.style = 'display:none !important;'; img.src = el.dataset.src; img.addEventListener('error', () => { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
+      <categories>
+        <category>培训学习</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[你好鸭~]]></title>
     <url>%2Farchives%2Ff2d5fff6.html</url>
     <content type="text"><![CDATA[你好！这里是Sublime的个人小屋哦ヾ(◍°∇°◍)ﾉﾞ 1printf("hello world, hello my blog!"); 1cout { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
