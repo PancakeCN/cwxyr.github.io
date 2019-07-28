@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cwxyr.github.io/404.html</loc>
+    
+    <lastmod>2019-07-28T15:55:21.587Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://cwxyr.github.io/about/index.html</loc>
     
     <lastmod>2019-07-28T09:29:19.745Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://cwxyr.github.io/categories/index.html</loc>
     
     <lastmod>2019-07-09T08:01:52.506Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cwxyr.github.io/404.html</loc>
-    
-    <lastmod>2019-07-08T13:44:04.062Z</lastmod>
     
   </url>
   
