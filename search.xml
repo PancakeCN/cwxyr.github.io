@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hi! Here's Sublime's House]]></title>
+    <url>%2Farchives%2F72fc82f1.html</url>
+    <content type="text"><![CDATA[欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o 下面是建站记录….2019年5月中旬，开始有了写博客记录所学所得的想法 2019年6月初，在货比三家后，选择了Hexo静态框架，跟随大流换上了大名鼎鼎的NexT主题，并放在了github上 2019年6月末，叹服了Material-X主题的精美，推翻所有的重来，并加上了Valine和看板娘，进行了细节的优化 最后，感谢小可爱们多多支持我喔٩(๑>◡ { if (!el.dataset.src) { return; } const img = document.createElement('img'); img.style = 'display:none !important;'; img.src = el.dataset.src; img.addEventListener('error', () => { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[【站点搭建】使用WordPress搭建电协官网--（1）基础配置]]></title>
     <url>%2Farchives%2F826b26c7.html</url>
     <content type="text"><![CDATA[因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。 环境准备 一个阿里云或者腾讯云服务器 宝塔面板 CenOS 7+ 系统 LAMP/LNMP环境 WordPress安装包 远程连接工具Xshell和Xftp 购买并配置服务器对于大多数国内用户来说，我们可以选着阿里云或者腾讯云的服务器，这里以选择腾讯云服务器为例，进入腾讯云，注册并登录后进入管理后台。在云产品中选择云服务器： 之后，在云服务器里面选择创建： 选择适当的配置，我们可以选择快速配置，可以按照如下配置购买，其中推荐使用CentOS系统，相对来说较为稳定。 购买后，选择左边的SSH密钥，新建后并下载（如我命名为xshell） 返回实例页面，点击右侧更多->密码/密钥->加载密钥，选择之前创建的密钥后， document.querySelectorAll('.github-emoji') .forEach(el => { if (!el.dataset.src) { return; } const img = document.createElement('img'); img.style = 'display:none !important;'; img.src = el.dataset.src; img.addEventListener('error', () => { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
