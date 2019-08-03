@@ -458,8 +458,51 @@
 <p><img src="https://i.loli.net/2019/07/31/5d41a02986fd693847.png" alt="腾讯云3"></p>
 <p>购买后，选择左边的<code>SSH密钥</code>，新建后并下载（如我命名为xshell）</p>
 <p><img src="https://i.loli.net/2019/07/31/5d41a5462cda531468.png" alt="SSH密钥1"></p>
-<p>返回<code>实例</code>页面，点击右侧<code>更多</code>-><code>密码/密钥</code>-><code>加载密钥</code>，选择之前创建的密钥后，</p>
+<p>返回<code>实例</code>页面，点击右侧<code>更多</code>-><code>密码/密钥</code>-><code>加载密钥</code>，选择之前创建的密钥后，将会强制关机以绑定密钥。</p>
 <p><img src="https://i.loli.net/2019/07/31/5d41a660dfdf127999.png" alt="SSH密钥2"></p>
+<hr>
+<h1 id="下载Xshell和Xftp并远程连接"><a href="#下载Xshell和Xftp并远程连接" class="headerlink" title="下载Xshell和Xftp并远程连接"></a>下载Xshell和Xftp并远程连接</h1><ol>
+<li>Xshell<a href="https://www.netsarang.com/zh/xshell-download/" target="_blank" rel="noopener">下载地址</a></li>
+<li>Xftp<a href="https://www.netsarang.com/zh/xftp-download/" target="_blank" rel="noopener">下载地址</a></li>
+</ol>
+<h2 id="配置Xshell"><a href="#配置Xshell" class="headerlink" title="配置Xshell"></a>配置Xshell</h2><p>以下载Xshell为例，进入官网后右边有<code>免费授权页面</code>，填写相关信息后，收到回复邮件，打开链接即可免费下载（Xftp同理）  </p>
+<p><img src="https://i.loli.net/2019/08/04/m6erVNJikGXWtA3.png" alt="Xshell免费下载">  </p>
+<p>下载并安装Xshell和Xftp后，点击<code>文件</code>-><code>新建</code>，在“连接”窗口，填写的<code>主机</code>为腾讯云服务器外网IP地址，在“用户身份验证”窗口，选择<code>方法</code>为“Public Key”,<code>用户名</code>为root，用户密钥选择之前下载的SSH密钥，点击<code>连接</code>即可成功连接至腾讯云服务器：</p>
+<p><img src="https://i.loli.net/2019/08/04/69ZH51GmLwBqsgj.png" alt="shell配置1">  </p>
+<p><img src="https://i.loli.net/2019/08/04/rMlsa57UfcbCTWO.png" alt="shell配置2"></p>
+<p>连接成功后的界面如下：  </p>
+<p><img src="https://i.loli.net/2019/08/04/qUBsvOgzDV1a5Tr.png" alt="shell连接成功">  </p>
+<h2 id="配置Xftp"><a href="#配置Xftp" class="headerlink" title="配置Xftp"></a>配置Xftp</h2><p>配置方法与Xshell类似，这里放上几张配置截图：  </p>
+<p><img src="https://i.loli.net/2019/08/04/qhubmzMlQOISoE8.png" alt="ftp配置">  </p>
+<p><img src="https://i.loli.net/2019/08/04/fNnRMyYxqu8BWbC.png" alt="ftp连接成功">  </p>
+<p><strong>如果你已经实现了上述结果，恭喜你，远程连接已配置成功。</strong></p>
+<p><strong>PS:<br>使用Xshell需要涉及Linux命令相关的知识。如不是很了解，建议点击这里的<a href="https://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener">传送门</a>了解基本命令。</strong></p>
+<hr>
+<h1 id="安装宝塔面板"><a href="#安装宝塔面板" class="headerlink" title="安装宝塔面板"></a>安装宝塔面板</h1><p>安装宝塔面板主要是为了方便后期维护的方便，使得服务器配置可视化同时加快配置效率。  </p>
+<p>宝塔面板<a href="https://www.bt.cn/" target="_blank" rel="noopener">官方网站</a> </p>
+<p><strong>PS：安装宝塔面板时，一定要保证系统纯净，即服务器中没有安装其他的任何软件，否则可能会安装失败！！！</strong>   </p>
+<h2 id="放行出站入站端口"><a href="#放行出站入站端口" class="headerlink" title="放行出站入站端口"></a>放行出站入站端口</h2><p>在安装面板之前，需要放行特定的入站和出站端口号。回到腾讯云管理界面，选择<code>安全组</code>-><code>新建</code>： </p>
+<p><img src="https://i.loli.net/2019/08/04/ptxE3DG1CuNWMzO.png" alt="安全组1"></p>
+<p>然后下载规则配置文件：  </p>
+<p><a href="https://www.bt.cn/bbs/forum.php?mod=attachment&aid=NDExOHwyYTI5ZWM1NnwxNTY0ODUwMzQ4fDB8MTIyOQ%3D%3D" target="_blank" rel="noopener">sg_input_rules.xlsx</a></p>
+<p><a href="https://www.bt.cn/bbs/forum.php?mod=attachment&aid=NDExOXxkZGE5M2NlNHwxNTY0ODUwMzQ4fDB8MTIyOQ%3D%3D" target="_blank" rel="noopener">sg_output_rules.xlsx</a> </p>
+<p>点击<code>导入规则</code>，将规则配置文件添加到入站和出站规则中：</p>
+<p><img src="https://i.loli.net/2019/08/04/kPi3QZyUNjYF5XM.png" alt="入站和出站规则1"></p>
+<p>之后，点击<code>关联实例</code>-><code>新增关联</code>，将规则和服务器相互关联。</p>
+<p><img src="https://i.loli.net/2019/08/04/h2AovOxpckI5RLz.png" alt="关联实例"></p>
+<h2 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h2><p>打开之前配置好的Xshell，对于CenOS 7+的系统，输入如下命令安装:</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现提示信息，询问是否安装宝塔面板，输入<code>y</code>并回车：</p>
+<p><img src="https://i.loli.net/2019/08/04/I7OYQWmrZpB3lgA.png" alt="安装"></p>
+<p>耐心等待片刻后，出现如下界面，则安装成功。</p>
+<p><img src="https://i.loli.net/2019/08/04/PADRNi4qGy5ml1g.png" alt="成功"></p>
+<p>其中，给出了登录名和密码，登录地址为<code>http://你的IP或域名地址:8888/安全入口地址</code>的格式。浏览器输入登录地址并登录。如出现如下后台界面，则安装成功！！！</p>
+<p><img src="https://i.loli.net/2019/08/04/YMI4SZxPqzpRneL.png" alt="宝塔面板"></p>
+<p>至此，服务器的基础配置已基本完成。建议到<code>面板设置</code>修改登录名和密码，便于记忆。</p>
+<hr>
+<p>感谢你的耐心阅读呀(๑<em>◡</em>๑)，原创不易，收藏并评论一下呗~</p>
+<p>接下来，我们可以配置服务器和安装WordPress等后续操作啦~</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -489,10 +532,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-02T12:50:04+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-04T01:48:33+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年8月2日</p>
+    <p>最后更新于 2019年8月4日</p>
   </a>
 </div>
 
@@ -761,7 +804,7 @@
 </header>
 
     <div class='content material'>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#购买并配置服务器"><span class="toc-text">购买并配置服务器</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#购买并配置服务器"><span class="toc-text">购买并配置服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#下载Xshell和Xftp并远程连接"><span class="toc-text">下载Xshell和Xftp并远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Xshell"><span class="toc-text">配置Xshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Xftp"><span class="toc-text">配置Xftp</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装宝塔面板"><span class="toc-text">安装宝塔面板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#放行出站入站端口"><span class="toc-text">放行出站入站端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正式安装"><span class="toc-text">正式安装</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -1075,7 +1118,7 @@
     。
 
     <i class="fas fa-chart-area"></i>
-    <span class="post-count">字数统计：3.8k</span>
+    <span class="post-count">字数统计：4.5k</span>
     <br>
 
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
