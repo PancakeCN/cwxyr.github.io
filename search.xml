@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Hi! Here's Sublime's House]]></title>
     <url>%2Farchives%2F72fc82f1.html</url>
-    <content type="text"><![CDATA[欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o 下面是建站记录….2019年5月中旬，开始有了写博客记录所学所得的想法 2019年6月初，在货比三家后，选择了Hexo静态框架，跟随大流换上了大名鼎鼎的NexT主题，并放在了github上 2019年6月末，叹服了Material-X主题的精美，推翻所有的重来，并加上了Valine和看板娘，进行了细节的优化 最后，感谢小可爱们多多支持我喔٩(๑>◡ { if (!el.dataset.src) { return; } const img = document.createElement('img'); img.style = 'display:none !important;'; img.src = el.dataset.src; img.addEventListener('error', () => { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
+    <content type="text"><![CDATA[欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o 下面是建站记录….2019年5月初，开始有了写博客记录所学所得的想法 2019年5月中旬，连续摸爬滚打后，初步习得了相关前端知识… 2019年6月初，在货比三家后，选择了Hexo静态框架，跟随大流换上了大名鼎鼎的NexT主题，并放在了github上 2019年6月末，偶然的发现，叹服于Material-X主题的精美，推翻所有的重来，并加上了Valine和看板娘，进行了细节的优化 最后，感谢小可爱们多多支持我喔٩(๑>◡ { if (!el.dataset.src) { return; } const img = document.createElement('img'); img.style = 'display:none !important;'; img.src = el.dataset.src; img.addEventListener('error', () => { img.remove(); el.style.color = 'inherit'; el.style.backgroundImage = 'none'; el.style.background = 'none'; }); img.addEventListener('load', () => { img.remove(); }); document.body.appendChild(img); });]]></content>
   </entry>
   <entry>
     <title><![CDATA[【站点搭建】使用WordPress搭建电协官网--（1）基础配置]]></title>

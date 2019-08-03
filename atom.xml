@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cwxyr.github.io/"/>
-  <updated>2019-08-03T06:18:22.994Z</updated>
+  <updated>2019-08-03T07:41:41.240Z</updated>
   <id>http://cwxyr.github.io/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="http://cwxyr.github.io/archives/72fc82f1.html"/>
     <id>http://cwxyr.github.io/archives/72fc82f1.html</id>
     <published>2019-08-02T16:45:43.000Z</published>
-    <updated>2019-08-03T06:18:22.994Z</updated>
+    <updated>2019-08-03T07:41:41.240Z</updated>
     
-    <content type="html"><![CDATA[<p>欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o  </p><p><img src="https://i.loli.net/2019/08/03/29FZNQ1Pq8oBDKU.jpg" alt="Hello"></p><hr><h2 id="下面是建站记录…"><a href="#下面是建站记录…" class="headerlink" title="下面是建站记录…."></a>下面是建站记录….</h2><p>2019年5月中旬，开始有了写博客记录所学所得的想法 </p><p>2019年6月初，在货比三家后，选择了Hexo静态框架，跟随大流换上了大名鼎鼎的NexT主题，并放在了github上  </p><p>2019年6月末，叹服了Material-X主题的精美，推翻所有的重来，并加上了Valine和看板娘，进行了细节的优化  </p><hr><p>最后，感谢小可爱们多多支持我喔٩(๑>◡<๑)۶<br>如果能评论那是最好的啦<br>有你们的鼓励，<strong>我会一定加油滴</strong>  </p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    <content type="html"><![CDATA[<p>欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o  </p><p><img src="https://i.loli.net/2019/08/03/lFDJQWiYNV1ePmw.jpg" alt="Hello"></p><hr><h2 id="下面是建站记录…"><a href="#下面是建站记录…" class="headerlink" title="下面是建站记录…."></a>下面是建站记录….</h2><p>2019年5月初，开始有了写博客记录所学所得的想法  </p><p>2019年5月中旬，连续摸爬滚打后，初步习得了相关前端知识…  </p><p>2019年6月初，在货比三家后，选择了Hexo静态框架，跟随大流换上了大名鼎鼎的NexT主题，并放在了github上  </p><p>2019年6月末，偶然的发现，叹服于Material-X主题的精美，推翻所有的重来，并加上了Valine和看板娘，进行了细节的优化  </p><hr><p>最后，感谢小可爱们多多支持我喔٩(๑>◡<๑)۶<br>如果能评论那是最好的啦<br>有你们的鼓励，<strong>我会一定加油滴</strong>  </p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
     <summary type="html">
     
       
       
         &lt;p&gt;欢迎小可爱们来到我的小屋(oﾟ▽ﾟ)o  &lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/08/03/29FZNQ1Pq8oBDKU.jpg&quot; alt=&quot;Hello&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/08/03/lFDJQWiYNV1ePmw.jpg&quot; alt=&quot;Hello&quot;&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;下面是建站记录…&quot;&gt;&lt;a href
       
