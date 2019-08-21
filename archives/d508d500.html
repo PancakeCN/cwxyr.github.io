@@ -493,7 +493,7 @@
 <blockquote>
 <p><strong>PS</strong>：注意，使用这种方法一定要打开白平衡和自动增益！！！非常重要！！！我们队就吃了这样的亏，使得OpenMV距离地面较近的时候识别正常，一旦远离地面一定距离后，图像中将无法识别边界直线！！！  </p>
 </blockquote>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在这里，应该将自动增益和白平衡打开</span></span><br><span class="line">sensor.set_auto_gain(<span class="literal">False</span>) <span class="comment"># 在进行颜色追踪时，必须关闭</span></span><br><span class="line">sensor.set_auto_whitebal(<span class="literal">False</span>) <span class="comment"># 在进行颜色追踪时，必须关闭</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在这里，应该将自动增益和白平衡打开</span></span><br><span class="line">sensor.set_auto_gain(<span class="literal">True</span>)</span><br><span class="line">sensor.set_auto_whitebal(<span class="literal">True</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="飞机悬停定圆点"><a href="#飞机悬停定圆点" class="headerlink" title="飞机悬停定圆点"></a>飞机悬停定圆点</h2><p>定特定颜色的原点时，将运用<code>img.find_blobs()</code>函数（这里将图像二值化了），返回色块其中心坐标<code>cx()</code>和<code>cy()</code>即可。对于不同的颜色的色块（如题目中的红色），需要实地测试得到不同的阈值。<br>这里的返回值为圆点中心坐标、像素大小和标志位。</p>
 <p><img src="https://i.loli.net/2019/08/21/GakNHxnl5Ee9Qow.png" alt="圆点"></p>
@@ -537,7 +537,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-21T12:57:36+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-21T13:31:07+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年8月21日</p>
