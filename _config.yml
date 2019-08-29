@@ -1,0 +1,160 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title:  星辰大海٩(๑❛ᴗ❛๑)۶
+subtitle: 念念不忘，必有回响
+description: 你一定要努力，才能和更好的人相遇<br>To be EXCELENT.  #SEO
+keywords:
+author: Sublime.rui
+language: zh-CN
+timezone:
+
+#livere_uid: MTAyMC80NDcyNS8yMTI0OQ==
+favicon: https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico
+avatar: http://puepb3bdy.bkt.clouddn.com/my_personal_logo.jpg # /images/my_personal_logo.jpg
+
+# 自动生成sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: http://cwxyr.github.io/
+root: /
+permalink: archives/:abbrlink.html #:year/:month/:day/:title/
+permalink_defaults:
+
+abbrlink:
+  alg: crc32  # 算法：crc16(default) and crc32
+  rep: hex    # 进制：dec(default) and hex
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - README.md
+  - CNAME
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+  content: true
+
+# Writing 写作文章设置
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+  
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 5
+  order_by: -date
+  
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Date / Time format 日期格式/时间格式
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+#RSS订阅是设置
+plugin: hexo-generator-feed
+#Feed Atom
+feed:
+type: atom
+path: atom.xml
+limit: 20
+
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+# 主题
+theme: material-x
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy: 
+  type: git
+  repository:
+    github: git@github.com:cwxyr/cwxyr.github.io.git,master #github
+    coding: git@git.dev.tencent.com:Sublime_/Sublime_.coding.me.git,master # 腾讯云开发者平台
+
+# Live2D
+## https://github.com/EYHN/hexo-helper-live2d
+live2d:
+  enable: true
+  # enable: false
+  #scriptFrom: local # 默认
+  #pluginRootPath: live2dw/ # 插件在站点上的根目录(相对路径)
+  #pluginJsPath: lib/ # 脚本文件相对与插件根目录路径
+  #pluginModelPath: assets/ # 模型文件相对与插件根目录路径
+  #scriptFrom: jsdelivr # jsdelivr CDN
+  # scriptFrom: unpkg # unpkg CDN
+  scriptFrom: https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js # 你的自定义 url
+  tagMode: false # 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中
+  debug: false # 调试, 是否在控制台输出日志
+  model:
+    #use: live2d-widget-model-shizuku # npm-module package name
+    # use: wanko # 博客根目录/live2d_models/ 下的目录名
+    # use: ./wives/wanko # 相对于博客根目录的路径
+    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json # 你的自定义 url
+    scale: 1
+    hHeadPos: 0.5
+    vHeadPos: 0.618
+  display:
+    superSample: 2
+    width: 150
+    height: 300
+    position: left
+    hOffset: 0
+    vOffset: -20
+  mobile:
+    show: false
+    scale: 0.5
+  react:
+    opacityDefault: 0.7
+    opacityOnHover: 0.2
+
+#valine配置
+
+  # 还需要在根目录配置文件中添加下面这三行内容
+leancloud:
+  app_id: NUIvWmBVy0NYRGpzYbzFaK5b-gzGzoHsz
+  app_key: hpOy65rB00YTyHxaVmx93woY
