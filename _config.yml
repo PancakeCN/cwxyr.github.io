@@ -3,13 +3,20 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+title: 果子小酱
+subtitle: '果子小酱 Sublime的博客 念念不忘，必有回响'
+description: 这是Sublime.的个人博客果子小酱，主要记录了自己在编程技术的各种总结和其他的生活感悟。<br>This is the personal blog written by Sublime., which contains blogger's own ideas and thoughts in programming and life. 你一定要努力，才能和更好的人相遇<br>To be EXCELENT.
+keywords: Blog, programming, life, 博客, 编程学习, 生活
+author: 煎饼果子
+language:
+  - zh-CN
+  - en
+  - zh-HK
+  - zh-TW
 timezone: ''
+
+# 网站logo
+favicon: /favicon.ico
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
@@ -98,9 +105,23 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: volantis
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+
+## 导入JS
+import:
+  link:
+  - "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css'/>"
+  script: 
+  - "<script src='https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.2/js/instantclick-1.2.2.js' type='module'></script>"
+  - "<script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/baidu_js_push.js'></script>"
+#     - "<script src='https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js'></script>" 
+  - "<script src='https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js'></script>"
+  - "<script src='https://v1.hitokoto.cn/?encode=js&select=%23hitokoto' defer></script>"
+#     - "<script type='text/javascript' src='https:///v1.hitokoto.cn/?format=js&charset=utf-8'></script>"
+  - "<script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/site_time.js'></script>"
