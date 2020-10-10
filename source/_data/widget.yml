@@ -1,0 +1,164 @@
+blogger:
+  class: blogger
+  display: [desktop] # [desktop, mobile]
+  avatar: http://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/avatar_new.jpg # https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/img-283987a4a57d3eb01655a2414ef6ecb3.jpg
+  shape: circle # circle, rectangle
+  url: /about/
+  title:
+  subtitle:
+  # jinrishici: true # Poetry Today. You can set a string, and it will be displayed when loading fails.
+  social: true
+# ---------------------------------------
+# toc widget (valid only in articles)
+toc:
+  class: toc
+  display: [desktop, mobile] # [desktop, mobile]
+  header:
+    icon: fas fa-list
+    title: 本文目录
+  list_number: false
+  min_depth: 2
+  max_depth: 5
+# ---------------------------------------
+# category widget
+category:
+  class: category
+  display: [desktop] # [desktop, mobile]
+  header:
+    icon: fas fa-folder-open
+    title: 文章分类
+    url: /categories/
+# ---------------------------------------
+# tagcloud widget
+tagcloud:
+  class: tagcloud
+  display: [desktop] # [desktop, mobile]
+  header:
+    icon: fas fa-tags
+    title: 热门标签
+    url: /tags/
+  min_font: 14
+  max_font: 24
+  color: true
+  start_color: '#999'
+  end_color: '#555'
+# ---------------------------------------
+# related posts widget
+related_posts:
+  class: related_posts # npm i -S hexo-related-popular-posts
+  display: [desktop, mobile] # [desktop, mobile]
+  header:
+    icon: fas fa-bookmark
+    title: 相关文章
+  max_count: 5
+# ---------------------------------------
+# copyright widget (valid only in articles)
+copyright:
+  class: copyright
+  display: [desktop, mobile] # [desktop, mobile]
+  blockquote: true
+  permalink: '本文永久链接是：'
+  content:
+    - '博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议'
+    - permalink
+# ---------------------------------------
+# qrcode widget
+donate:
+  class: qrcode
+  display: [desktop, mobile] # [desktop, mobile]
+  height: 64px  # Automatic height if not set
+  fancybox: true
+  images:
+    - https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png
+    - https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png
+# You can add your own widget here or 'blog/source/_data/widget.yml'
+# class: text, list, grid, qrcode, page, ... see more at https://volantis.js.org/
+# ---------------------------------------
+# references widget
+references:
+  class: references # is subclass of list
+  display: [desktop, mobile] # [desktop, mobile]
+  header:
+    icon: fas fa-quote-left
+    title: 参考资料
+  related_repos:
+    class: references # is subclass of list
+    display: [desktop, mobile] # [desktop, mobile]
+    header:
+      icon: fab fa-github
+      title: 源码链接
+
+
+# ---------------------------------------
+# 自定义组件，仿照如下写法
+navigation:
+  class: grid
+  display: [desktop, mobile] # [desktop, mobile]
+  header:
+    icon: fas fa-map-signs
+    title: 导航
+  rows:
+    - name: 引导页
+      icon: fa fa-home
+      url: https://cwxyr.me
+    - name: 小窝
+      icon: fa fa-tree
+      url: https://blog.cwxyr.me/
+    - name: 导航站
+      icon: fas fa-map-signs
+      url: https://nav.cwxyr.me/
+    #- name: 最近成果
+    #  icon: fas fa-code-branch
+    #  url: project/
+    #- name: 我的网盘
+    #  icon: fa fa-cloud
+    #  url: http://120.26.129.114:8000/
+    #  rel: nofollow
+
+repos:
+  class: list
+  display: [desktop] # [desktop, mobile]
+  header:
+    icon: fa fa-heart
+    title: 推荐呐~
+    #url: https://github.com/xaoxuu/
+  rows:
+    #- name: 留言板
+    #  icon: fa fa-sticky-note
+    #  url: /message_board/
+
+hitokoto:
+  class: text
+  display: [desktop] # [desktop, mobile]
+  header:
+    icon: fas fa-star
+    title: 一言 Hitokoto
+    # url: https://github.com/xaoxuu/
+  content:
+    - "<center><p id='hitokoto'>:D 获取中...</p></center>"
+
+notice:
+  class: text
+  display: [desktop] # [desktop, mobile]
+  header:
+    icon: fas fa-star
+    title: 文章更新较慢(Ｔ▽Ｔ)
+    # url: https://github.com/xaoxuu/
+  content:
+    # - '<center><img src="https://i.loli.net/2020/02/11/s1ayTzAfJF5DQMt.png"></center>'
+    - '<center>博主备战21考研(Ｔ▽Ｔ)</center>'
+    - '<center>欢迎留言，不定时回复=_=</center>'
+    - '<center>祝各位考研狗们都成功上岸喔~</center>'
+    #- '[<img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/prohud/logo.png" height="50px">](https://github.com/xaoxuu/ProHUD)'
+    #- '[<img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/valuex/logo.png" height="50px">](https://github.com/xaoxuu/ValueX)'
+    #- '[<img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/proj/inspire/logo.png" height="50px">](https://github.com/xaoxuu/Inspire)'
+
+some_page:
+  class: page
+  display: [desktop, mobile] # [desktop, mobile]
+  header:
+    icon: fas fa-chevron-left
+    title: CocoaPods
+    url: /wiki/
+  pid: # 在页面的front-matter中设置一个pid值
+  content: excerpt # excerpt, more, content

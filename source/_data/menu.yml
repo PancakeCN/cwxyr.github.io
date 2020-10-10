@@ -1,0 +1,46 @@
+- name: 博客
+  icon: fas fa-rss
+  url: /
+- name: 留言板
+  icon: fa fa-sticky-note
+  url: message_board/
+- name: 友人帐
+  icon: fas fa-link
+  url: friends/
+  rel: nofollow
+- name: 我
+  icon: fas fa-info-circle
+  url: about/
+  rel: nofollow
+- name: 捉迷藏
+  icon: fas fa-ellipsis-v
+  rows:
+    - name: 音乐
+      icon: fas fa-compact-disc    
+    - name: hr
+    - name: 分类
+      icon: fas fa-folder-open
+      url: categories/  
+    - name: 标签
+      icon: fas fa-tags
+      url: tags/ 
+    - name: 文章归档
+      icon: fas fa-archive
+      url: archives/       
+    - name: hr
+    - name: 学习&生活
+    - name: 收藏音乐
+      icon: fas fa-compact-disc
+      url: /favorite_things/
+    - name: 笔记本
+      icon: fas fa-book
+      url: https://docs.cwxyr.me/
+    - name: 计划表
+      icon: fas fa-list
+      url: /schedule/
+- name: 小窝
+  icon: fa fa-tree
+  url: https://blog.cwxyr.me/
+- name: Travelling
+  icon: fa fa-plane
+  url: https://travellings.now.sh/
