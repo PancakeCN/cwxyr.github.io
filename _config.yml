@@ -111,9 +111,8 @@ theme: volantis
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy: 
   - type: git
-    repository:
-      github: git@github.com:cwxyr/cwxyr.github.io.git,master #github
-      coding: git@git.dev.tencent.com:Sublime_/Sublime_.coding.me.git,master # 腾讯云开发者平台
+    repo: git@github.com:cwxyr/cwxyr.github.io.git,master #github
+    branch: gh-pages  
   #- type: baidu_url_submitter                        ##百度url推送
 
 
