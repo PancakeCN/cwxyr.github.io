@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>2019电赛--无人机题目OpenMV总结 - 果子小酱</title>
+  
+    <meta name="keywords" content="OpenMV">
+  
+
+  
+    <meta name="description" content="2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发挥不是特别好，但还是有所收获吧。这里，我把比赛自己用到的相关程序代码贴出来并做了简要总结。  
+无论如何都不能放弃呀！勤...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css">
+
+  
+  
+
+  
+
+  
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css'/>
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">果子小酱</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              id="v4getting-started">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              id="faqs">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              id="examples">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              id="contributors">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              id="https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+      <a title='2019电赛--无人机题目OpenMV总结' href='/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/'>
+        <img class='thumbnail' src='https://cdn.shopify.com/s/files/1/0803/9211/t/7/assets/logo.png?36'>
+      </a>
+    
+    
+      <h1 class="title">
+        2019电赛--无人机题目OpenMV总结
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/">Python</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2019年8月16日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="2019电赛--无人机题目OpenMV总结" data-path="/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <p>2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发挥不是特别好，但还是有所收获吧。这里，我把比赛自己用到的相关程序代码贴出来并做了简要总结。  </p>
+<p>无论如何都不能放弃呀！勤做笔记，加油！  </p>
+<p><img src="https://i.loli.net/2019/09/01/zJ8ytaPXqimM7Td.png" class="lazyload" data-srcset="https://i.loli.net/2019/09/01/zJ8ytaPXqimM7Td.png" srcset="data:image/png;base64,666" alt="go"></p>
+<a id="more"></a>
+
+<p>上一篇相关博文，<strong>准备阶段OpenMV学习笔记链接：<a target="_blank" rel="noopener" href="https://sublimerui.top/archives/f10b0e1a.html">https://sublimerui.top/archives/f10b0e1a.html</a></strong></p>
+<h1 id="无人机题目分析"><a href="#无人机题目分析" class="headerlink" title="无人机题目分析"></a>无人机题目分析</h1><p><strong>今年的电赛题目着实让人觉得出题挺新颖的。新颖的同时，困难度就直线提升了（呜呜呜，我们队就是受害者之一，说好的光流可以定点呢，结果那种灰白条纹地面根本就定不住，<del>真的想狠狠地吐槽一下砖家组</del>）</strong>  </p>
+<p>哎，做下来大部分时间懵逼，都是一把辛酸一把泪呀~</p>
+<p>言归正传，今年的电赛无人机题目B题——巡线机器人，具体要求是让我们的无人机从一个杆起飞，沿着线飞向宁一个杆，飞行过程中会拍摄条形码和二维码，绕杆一圈后，再降落。题目如下：  </p>
+<p><img src="https://i.loli.net/2019/08/16/1mbytxXeTfUMODw.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/16/1mbytxXeTfUMODw.png" srcset="data:image/png;base64,666" alt="题目1"><br><img src="https://i.loli.net/2019/08/16/UfvZ3gVPyBmJAO5.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/16/UfvZ3gVPyBmJAO5.png" srcset="data:image/png;base64,666" alt="题目2"><br><img src="https://i.loli.net/2019/08/16/N9XSR86yvMg1YVs.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/16/N9XSR86yvMg1YVs.png" srcset="data:image/png;base64,666" alt="题目3"><br><img src="https://i.loli.net/2019/08/17/Hl1eZWOT9I7VmXg.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/17/Hl1eZWOT9I7VmXg.png" srcset="data:image/png;base64,666" alt="题目4"><br><img src="https://i.loli.net/2019/08/17/Uft3dGCArjkh26g.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/17/Uft3dGCArjkh26g.png" srcset="data:image/png;base64,666" alt="题目5"><br><img src="https://i.loli.net/2019/08/17/EMt9haQgcV8CsRD.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/17/EMt9haQgcV8CsRD.png" srcset="data:image/png;base64,666" alt="题目6"><br><img src="https://i.loli.net/2019/08/17/pWHxcUMsYvVqD6t.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/17/pWHxcUMsYvVqD6t.png" srcset="data:image/png;base64,666" alt="题目7"></p>
+<blockquote>
+<p><strong>PS</strong>:这里附上2019年电赛的各方向题目，已经放在Github上：<a target="_blank" rel="noopener" href="https://github.com/cwxyr/nuedc-2019-openmv/blob/master/2019%E7%94%B5%E8%B5%9B%E9%A2%98%E7%9B%AE.zip">2019电赛题目.zip</a></p>
+</blockquote>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>题目中，涉及OpenMV的部分，主要可以分为以下几类吧：  </p>
+<ol>
+<li><p>识别并拍摄条形码和二维码，储存于SD卡中；</p>
+</li>
+<li><p>OpenMV巡线（此方法是由于实际比赛中发现无法用光流在灰白条纹地面上定点，即无法控制其水平方向的误差偏移）  </p>
+<ul>
+<li><p>方法一：识别并拟合两条杆之间线缆的直线，返回偏差距离和偏差角度（缺点：OpenMV视野横向不丢失距离太小了）；  </p>
+</li>
+<li><p>方法二：拟合识别条纹边缘（由于条纹宽度规定了，可以寻找灰白条纹和外部白色地面的交界处），拟合出边缘直线，返回偏差距离和偏差角度（相对来说更稳定，这也是我们队最后用的方法）；</p>
+</li>
+</ul>
+</li>
+<li><p>识别并返回环形圆板中心红点坐标位置，使飞机定圆点（发挥部分）  </p>
+</li>
+<li><p>其他（例如起飞后用OpenMV识别靠杆，识别到特定标志后开始绕杆等等）</p>
+</li>
+</ol>
+<h1 id="逐类型分析"><a href="#逐类型分析" class="headerlink" title="逐类型分析"></a>逐类型分析</h1><h2 id="拍摄条形码和二维码并储存SD卡"><a href="#拍摄条形码和二维码并储存SD卡" class="headerlink" title="拍摄条形码和二维码并储存SD卡"></a>拍摄条形码和二维码并储存SD卡</h2><p>有关于条形码和二维码的讲解我已将在<a target="_blank" rel="noopener" href="https://sublimerui.top/archives/f10b0e1a.html">上一篇博文</a>中有所总结和归纳了，这里，直接贴上我写的部分代码吧，全部代码已经放在<a target="_blank" rel="noopener" href="https://github.com/cwxyr/nuedc-2019-openmv">我的Github</a>上面了，需要的话可以自己下载呐~</p>
+<p>自己手写的完整程序已放在Github上：**<a target="_blank" rel="noopener" href="https://github.com/cwxyr/nuedc-2019-openmv/blob/master/shot_images_to_save.py">shot_images_to_save.py</a>**  </p>
+<ul>
+<li>条形码和二维码拍摄：<br>函数<code>shot_images_while_tracking_lines()</code>用于拍摄并储存找 照片于SD卡中。其中，此段程序会分别对条形码连续循环拍3三张，分别命名为“barcod_1.jpg”，“barcod_2.jpg”和“barcod_3.jpg”（二维码同理），只要OpenMV插上了SD卡后，一旦识别到相关条码后，便会拍摄并自动保存到卡中。<br>完整程序代码中，如果识别到条形码，OpenMV就会闪绿灯拍照；识别到二维码后，OpenMV会闪红灯拍照。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">############ 拍照 ###############</span></span><br><span class="line"></span><br><span class="line">barcode_num = <span class="number">0</span></span><br><span class="line">qrcode_num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拍摄照片</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shot_images_while_tracking_lines</span>():</span></span><br><span class="line">    <span class="comment">#global had_finished_barcode, had_finished_qrcode</span></span><br><span class="line">    <span class="keyword">global</span> barcode_detected, qrcode_detected, barcode_num, qrcode_num</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> barcode_detected: <span class="comment">#and (not had_finished_barcode):</span></span><br><span class="line">        <span class="comment">#sensor.set_framesize(sensor.QVGA)</span></span><br><span class="line">        <span class="comment">#barcode_detected = 0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> barcode_num &lt;= <span class="number">3</span>:</span><br><span class="line">            barcode_num += <span class="number">1</span></span><br><span class="line">            barcode_name = <span class="string">&quot;barcode_&quot;</span> + str(barcode_num)</span><br><span class="line">            sensor.snapshot().save(barcode_name + <span class="string">&quot;.jpg&quot;</span>)</span><br><span class="line"></span><br><span class="line">            print(barcode_name + <span class="string">&quot;.jpg is saved!&quot;</span>)</span><br><span class="line">            time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> barcode_num &gt;= <span class="number">3</span>:</span><br><span class="line">                barcode_num = <span class="number">0</span></span><br><span class="line">                <span class="comment">#barcode_detected = 0</span></span><br><span class="line">                print(<span class="string">&quot;bar:&quot;</span>, barcode_detected)</span><br><span class="line">                <span class="comment">#had_finished_barcode = 1</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> qrcode_detected: <span class="comment">#and (not had_finished_qrcode):</span></span><br><span class="line">        <span class="comment">#sensor.set_framesize(sensor.QVGA)</span></span><br><span class="line">        <span class="comment">#qrcode_detected = 0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> qrcode_num &lt;= <span class="number">4</span>:</span><br><span class="line">            qrcode_num += <span class="number">1</span></span><br><span class="line">            qrcode_name = <span class="string">&quot;qrcode_&quot;</span> + str(qrcode_num)</span><br><span class="line">            sensor.snapshot().save(qrcode_name + <span class="string">&quot;.jpg&quot;</span>)</span><br><span class="line"></span><br><span class="line">            print(qrcode_name + <span class="string">&quot;.jpg is saved!&quot;</span>)</span><br><span class="line">            time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> qrcode_num &gt;= <span class="number">3</span>:</span><br><span class="line">                qrcode_num = <span class="number">0</span></span><br><span class="line">                <span class="comment">#qrcode_detected = 0</span></span><br><span class="line">                print(<span class="string">&quot;qr:&quot;</span>, qrcode_detected)</span><br><span class="line">                <span class="comment">#had_finished_qrcode = 1</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>识别条形码（识别黄色）和二维码（二值化后计算像素点，设置阈值）：<br>此段程序中，函数<code>count_pixels_with_movement(img)</code>用于识别并判断识别条形码和二维码的条件和阈值。以条形码为例，这里通过色块识别的方法，调用<code>img.find_blobs()</code>函数，通过设置黄色阈值，达到识别到黄色条码的目的。其中，<code>barcode_pixels_threshold</code>是一个列表，储存的2个元素分别是黄色阈值下限和上限。<br>此外，我也尝试运用统计像素点的方式去识别二维码和条形码（这里已经被注释掉），其方法是先将图像按照一定的阈值二值化后，调用<code>img.get_pixel()</code>函数，统计满足像素值为255（即白色）的像素个数，同时，设定特定的像素阈值（如<code>qrcode_pixels_threshold</code>等等，与黄色检测同理，也有阈值上下限两个阈值），也可以达到同样的效果。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">############ 像素识别 ###########</span></span><br><span class="line"></span><br><span class="line">barcode_cnt = <span class="number">0</span></span><br><span class="line">qrcode_cnt = <span class="number">0</span></span><br><span class="line">pole_cnt = <span class="number">0</span></span><br><span class="line">LED_ON = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_pixels_with_movement</span>(<span class="params">img</span>):</span></span><br><span class="line">    <span class="keyword">global</span> x_width, y_height</span><br><span class="line">    <span class="keyword">global</span> barcode_detected, qrcode_detected</span><br><span class="line">    <span class="keyword">global</span> barcode_cnt, qrcode_cnt, pole_cnt</span><br><span class="line">    <span class="keyword">global</span> LED_ON</span><br><span class="line"></span><br><span class="line">    blob = img.find_blobs(barcode_pixels_threshold, pixels_threshold=<span class="number">150</span>, area_threshold=<span class="number">150</span>, merge=<span class="literal">True</span>, margin=<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> blob:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> blob:</span><br><span class="line">            img.draw_rectangle(i.rect(), color = <span class="number">127</span>)</span><br><span class="line">            barcode_detected = <span class="number">1</span></span><br><span class="line">            LED_ON = <span class="number">1</span></span><br><span class="line">            print(<span class="string">&quot;132123132131313131112311231&quot;</span>) <span class="comment">#测试用，可删除</span></span><br><span class="line">            print(<span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        barcode_detected = <span class="number">0</span></span><br><span class="line">        LED_ON = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    x_pos = <span class="number">0</span></span><br><span class="line">    y_pos = <span class="number">0</span></span><br><span class="line">    total_white_pixels = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x_pos <span class="keyword">in</span> range(x_width):</span><br><span class="line">        <span class="keyword">for</span> y_pos <span class="keyword">in</span> range(y_height):</span><br><span class="line">            <span class="keyword">if</span> img.get_pixel(x_pos, y_pos) == <span class="number">255</span>:</span><br><span class="line">                total_white_pixels += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#print(&quot;total white pixels are&quot;, total_white_pixels)</span></span><br><span class="line"><span class="comment">#    if total_white_pixels &gt;= verticle_pixels_threshold[0] and \</span></span><br><span class="line"><span class="comment">#            total_white_pixels &lt;= verticle_pixels_threshold[1]:       #直角</span></span><br><span class="line"><span class="comment">#        singleline_check.is_verticle = 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#    elif total_white_pixels &gt;= track_line_pixels_threshold[0] and \</span></span><br><span class="line"><span class="comment">#            total_white_pixels &lt;= track_line_pixels_threshold[1]:     #巡线</span></span><br><span class="line"><span class="comment">#        singleline_check.is_verticle = 1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> total_white_pixels &gt;= barcode_pixels_threshold[<span class="number">0</span>] <span class="keyword">and</span> \</span><br><span class="line">            total_white_pixels &lt;= barcode_pixels_threshold[<span class="number">1</span>]:        <span class="comment">#条形码</span></span><br><span class="line">       <span class="keyword">if</span> barcode_cnt &gt;= <span class="number">0</span> <span class="keyword">and</span> barcode_cnt &lt;= <span class="number">49</span>:</span><br><span class="line">            barcode_cnt += <span class="number">1</span></span><br><span class="line">       <span class="keyword">if</span> barcode_cnt == <span class="number">50</span>:</span><br><span class="line">            barcode_cnt = <span class="number">-1</span></span><br><span class="line">            barcode_detected = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#        LED(1).toggle()  #红灯</span></span><br><span class="line">    <span class="comment">#        time.sleep(200)</span></span><br><span class="line">    <span class="comment">#        LED(1).toggle()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#if total_white_pixels &gt;= qrcode_pixels_threshold[0] and \</span></span><br><span class="line">    <span class="comment">#        total_white_pixels &lt;= qrcode_pixels_threshold[1]:         #二维码</span></span><br><span class="line">    <span class="comment">#    if qrcode_cnt &gt;= 0 and qrcode_cnt &lt;= 49:</span></span><br><span class="line">    <span class="comment">#        qrcode_cnt += 1</span></span><br><span class="line">    <span class="comment">#    if qrcode_cnt == 50:</span></span><br><span class="line">    <span class="comment">#        qrcode_cnt = -1</span></span><br><span class="line">    <span class="comment">#        qrcode_detected = 1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#        LED(3).toggle()   #蓝灯</span></span><br><span class="line">    <span class="comment">#        time.sleep(200)</span></span><br><span class="line">    <span class="comment">#        LED(3).toggle()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#elif total_white_pixels &gt;= near_the_pole_threshold[0] and \</span></span><br><span class="line">    <span class="comment">#        total_white_pixels &lt;= near_the_pole_threshold[1]:         #到达杆</span></span><br><span class="line">    <span class="comment">#    if pole_cnt &gt;= 0 and pole_cnt &lt;= 49:</span></span><br><span class="line">    <span class="comment">#        pole_cnt += 1</span></span><br><span class="line">    <span class="comment">#    if pole_cnt == 50:</span></span><br><span class="line">    <span class="comment">#        pole_cnt = -1</span></span><br><span class="line">    <span class="comment">#        send_flag.pole_is_near = 1</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">&quot;the flags are: %d %d %d&quot;</span>%(barcode_detected, qrcode_detected, send_flag.pole_is_near))   <span class="comment">#测试用，可删除</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenMV巡线"><a href="#OpenMV巡线" class="headerlink" title="OpenMV巡线"></a>OpenMV巡线</h2><p>自己手写的完整程序已放在Github上：**<a target="_blank" rel="noopener" href="https://github.com/cwxyr/nuedc-2019-openmv/blob/master/detect_and_track_edges.py">detect_and_track_edges.py</a>**</p>
+<h3 id="方法一（拟合两杆间直线）"><a href="#方法一（拟合两杆间直线）" class="headerlink" title="方法一（拟合两杆间直线）"></a>方法一（拟合两杆间直线）</h3><p>巡线的时候，使用的是最小二乘法的线性回归算法，即运用<code>img.get_regression()</code>函数（这里打开了鲁棒算法<code>robust = True</code>，效果更好），计算其拟合直线后的结果，并拥有两个返回值（误差偏离值<code>singleline_check.flag2.rho()</code>和偏角值<code>singleline_check.flag2.theta()</code>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#找线</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">found_line</span>(<span class="params">img</span>):</span></span><br><span class="line">    <span class="comment">#对图像所有阈值像素进行线性回归计算。这一计算通过最小二乘法进行，通常速度较快，但不能处理任何异常值。 若 robust 为True，则将</span></span><br><span class="line">    <span class="comment">#使用泰尔指数。泰尔指数计算图像中所有阈值像素间的所有斜率的中值。thresholds：追踪的颜色范围</span></span><br><span class="line">    singleline_check.flag2 = img.get_regression([(<span class="number">255</span>,<span class="number">255</span>)], robust = <span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">if</span> (singleline_check.flag2):</span><br><span class="line">        <span class="comment">#print(clock.fps())</span></span><br><span class="line">        singleline_check.rho_err = abs(singleline_check.flag2.rho())<span class="number">-0</span> <span class="comment">#求解线段偏移量的绝对值</span></span><br><span class="line">        <span class="keyword">if</span> singleline_check.flag2.theta()&gt;<span class="number">90</span>: <span class="comment">#求解角度的偏移量</span></span><br><span class="line">            singleline_check.theta_err = singleline_check.flag2.theta()<span class="number">-0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            singleline_check.theta_err = singleline_check.flag2.theta()<span class="number">-0</span></span><br><span class="line">        <span class="comment">#在图像中画一条直线。singleline_check.flag2.line()意思是(x0, y0)到(x1, y1)的直线；颜色可以是灰度值(0-255)，或者是彩色值</span></span><br><span class="line">        <span class="comment">#(r, g, b)的tupple，默认是白色</span></span><br><span class="line">        img.draw_line(singleline_check.flag2.line(), color = <span class="number">127</span>)</span><br><span class="line">        <span class="comment">#print(singleline_check.theta_err)</span></span><br></pre></td></tr></table></figure>
+
+<p>拟合示意图如下，（其中，红色的为拟合直线）：</p>
+<p><img src="https://i.loli.net/2019/08/21/uAZgSI6bPDifNhR.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/21/uAZgSI6bPDifNhR.png" srcset="data:image/png;base64,666" alt="拟合示意图"></p>
+<blockquote>
+<p><strong>PS</strong>：此方法准确度较高，但是OpenMV图像视野范围有限。当直线从图像视野最下端到达最上端，换算成无人机横向移动的距离仅有5-10cm，当无人机超出此范围时，将无法获取直线了，有一定的局限性。</p>
+</blockquote>
+<h3 id="方法二（拟合识别条纹边缘）"><a href="#方法二（拟合识别条纹边缘）" class="headerlink" title="方法二（拟合识别条纹边缘）"></a>方法二（拟合识别条纹边缘）</h3><p>此函数<code>track_edges(img)</code>中，同样使用<code>img.find_blobs()</code>找色块的方法，其中运用了简单角度和距离的计算方法。并返回条纹底色边界线的拟合直线，此函数的计算结果为拟合直线距离画面左边界距离<code>rho</code>和中心线的偏离角度<code>theta</code>。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">track_edges</span>(<span class="params">img</span>):</span> <span class="comment">#invert = True</span></span><br><span class="line">    blobs = img.find_blobs([edge_thresholds], pixels_threshold=<span class="number">50</span>, area_threshold=<span class="number">50</span>, merge=<span class="literal">False</span>, margin=<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">if</span> blobs:</span><br><span class="line">        sum_x = <span class="number">0</span></span><br><span class="line">        sum_theta = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(blobs)):</span><br><span class="line">            img.draw_rectangle(blobs[i].rect(), color = <span class="number">127</span>)</span><br><span class="line">            sum_x += (blobs[i].x() + blobs[i].w())</span><br><span class="line">            sum_theta += math.degrees(blobs[i].rotation())</span><br><span class="line"></span><br><span class="line">        per_x = sum_x / len(blobs)</span><br><span class="line">        per_y = y_height / <span class="number">2</span></span><br><span class="line">        per_theta = sum_theta / len(blobs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> per_theta &gt;= <span class="number">0</span> <span class="keyword">and</span> per_theta &lt; <span class="number">90</span>:</span><br><span class="line">            true_theta = <span class="number">90</span> - per_theta</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> per_theta &gt;= <span class="number">90</span> <span class="keyword">and</span> per_theta &lt;<span class="number">180</span>:</span><br><span class="line">            true_theta = (<span class="number">180</span> - per_theta) + <span class="number">90</span></span><br><span class="line"></span><br><span class="line">        print(<span class="string">&quot;per_x: %d per_y: %d true_theta: %d&quot;</span>%(per_x, per_y, true_theta))</span><br><span class="line">        horizontal_line = (int(per_x), int(per_y), <span class="number">0</span>, int(per_y))</span><br><span class="line">        centre_cross    = (int(per_x), int(per_y))</span><br><span class="line"></span><br><span class="line">        img.draw_line(horizontal_line, color = <span class="number">127</span>)</span><br><span class="line">        img.draw_cross(centre_cross, color = <span class="number">127</span>)</span><br><span class="line"></span><br><span class="line">        singleline_check.rho_err = int(per_x)</span><br><span class="line">        singleline_check.theta_err = int(true_theta)</span><br><span class="line"></span><br><span class="line">    line.flag = <span class="number">1</span></span><br><span class="line">    uart.write(pack_linetrack_data())</span><br></pre></td></tr></table></figure>
+
+<p>拟合示意图如下（其中，红色的为拟合直线）：</p>
+<p><img src="https://i.loli.net/2019/08/21/x9vfbNuUJ3sOI2t.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/21/x9vfbNuUJ3sOI2t.png" srcset="data:image/png;base64,666" alt="拟合示意图"></p>
+<p>这样，当检测到条纹边界的时候，会计算拟合出条纹边界的直线。  </p>
+<blockquote>
+<p><strong>PS</strong>：注意，使用这种方法一定要打开白平衡和自动增益！！！非常重要！！！我们队就吃了这样的亏，使得OpenMV距离地面较近的时候识别正常，一旦远离地面一定距离后，图像中将无法识别边界直线！！！  </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在这里，应该将自动增益和白平衡打开</span></span><br><span class="line">sensor.set_auto_gain(<span class="literal">True</span>)</span><br><span class="line">sensor.set_auto_whitebal(<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="飞机悬停定圆点"><a href="#飞机悬停定圆点" class="headerlink" title="飞机悬停定圆点"></a>飞机悬停定圆点</h2><p>定特定颜色的原点时，将运用<code>img.find_blobs()</code>函数（这里将图像二值化了），返回色块其中心坐标<code>cx()</code>和<code>cy()</code>即可。对于不同的颜色的色块（如题目中的红色），需要实地测试得到不同的阈值。<br>这里的返回值为圆点中心坐标、像素大小和标志位。</p>
+<p><img src="https://i.loli.net/2019/08/21/GakNHxnl5Ee9Qow.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/21/GakNHxnl5Ee9Qow.png" srcset="data:image/png;base64,666" alt="圆点"></p>
+<p>自己手写的完整程序已放在Github上：<a target="_blank" rel="noopener" href="https://github.com/cwxyr/nuedc-2019-openmv/blob/master/main.py">main.py</a></p>
+<p>找圆点函数：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 点检测函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_dot</span>(<span class="params">img</span>):</span></span><br><span class="line">    <span class="comment">#thresholds为黑色物体颜色的阈值，是一个元组，需要用括号［ ］括起来可以根据不同的颜色阈值更改；pixels_threshold 像素个数阈值，</span></span><br><span class="line">    <span class="comment">#如果色块像素数量小于这个值，会被过滤掉area_threshold 面积阈值，如果色块被框起来的面积小于这个值，会被过滤掉；merge 合并，如果</span></span><br><span class="line">    <span class="comment">#设置为True，那么合并所有重叠的blob为一个；margin 边界，如果设置为5，那么两个blobs如果间距5一个像素点，也会被合并。</span></span><br><span class="line">    <span class="keyword">for</span> blob <span class="keyword">in</span> img.find_blobs(thresholds, pixels_threshold=<span class="number">80</span>, area_threshold=<span class="number">80</span>, merge=<span class="literal">True</span>, margin=<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">if</span> dot.pixels&lt;blob.pixels():<span class="comment">#寻找最大的黑点</span></span><br><span class="line">            <span class="comment">##先对图像进行分割，二值化，将在阈值内的区域变为白色，阈值外区域变为黑色</span></span><br><span class="line">            img.binary(thresholds)</span><br><span class="line">            <span class="comment">#对图像边缘进行侵蚀，侵蚀函数erode(size, threshold=Auto)，size为kernal的大小，去除边缘相邻处多余的点。threshold用</span></span><br><span class="line">            <span class="comment">#来设置去除相邻点的个数，threshold数值越大，被侵蚀掉的边缘点越多，边缘旁边白色杂点少；数值越小，被侵蚀掉的边缘点越少，边缘</span></span><br><span class="line">            <span class="comment">#旁边的白色杂点越多。</span></span><br><span class="line">            img.erode(<span class="number">2</span>)</span><br><span class="line">            dot.pixels=blob.pixels() <span class="comment">#将像素值赋值给dot.pixels</span></span><br><span class="line">            dot.x = blob.cx() <span class="comment">#将识别到的物体的中心点x坐标赋值给dot.x</span></span><br><span class="line">            dot.y = blob.cy() <span class="comment">#将识别到的物体的中心点x坐标赋值给dot.x</span></span><br><span class="line">            dot.ok= <span class="number">1</span></span><br><span class="line">            <span class="comment">#在图像中画一个十字；x,y是坐标；size是两侧的尺寸；color可根据自己的喜好设置</span></span><br><span class="line">            img.draw_cross(dot.x, dot.y, color=<span class="number">127</span>, size = <span class="number">10</span>)</span><br><span class="line">            <span class="comment">#在图像中画一个圆；x,y是坐标；5是圆的半径；color可根据自己的喜好设置</span></span><br><span class="line">            img.draw_circle(dot.x, dot.y, <span class="number">5</span>, color = <span class="number">127</span>)</span><br><span class="line"></span><br><span class="line">            print(<span class="string">&quot;centre_x = %d, centre_y = %d&quot;</span>%(dot.x, dot.y))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#判断标志位 赋值像素点数据</span></span><br><span class="line">    dot.flag = dot.ok</span><br><span class="line">    dot.num = dot.pixels</span><br><span class="line"></span><br><span class="line">    <span class="comment">#清零标志位</span></span><br><span class="line">    dot.pixels = <span class="number">0</span></span><br><span class="line">    dot.ok = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p><strong>剩下的其他功能自己就没有写啦(T＿T)，比赛四天太紧张了，这样已经很不错了，已经是全部成果~</strong></p>
+</blockquote>
+<hr>
+<p>感谢你的耐心阅读呀(๑<em>◡</em>๑)，原创总结不易，收藏并评论一下呗~</p>
+<p>你的支持就是我前进的动力呀~</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/>http://example.com/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-20T21:16:32+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2019年10月20日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%94%B5%E8%B5%9B/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>电赛</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenMV/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>OpenMV</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Python</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/&title=2019电赛--无人机题目OpenMV总结 - 果子小酱&pics=https://cdn.shopify.com/s/files/1/0803/9211/t/7/assets/logo.png?36&summary=2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发挥不是特别好，但还是有所收获吧。这里，我把比赛自己用到的相关程序代码贴出来并做了简要总结。  
+无论如何都不能放弃呀！勤做笔记，加油！  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/&title=2019电赛--无人机题目OpenMV总结 - 果子小酱&pics=https://cdn.shopify.com/s/files/1/0803/9211/t/7/assets/logo.png?36&summary=2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发挥不是特别好，但还是有所收获吧。这里，我把比赛自己用到的相关程序代码贴出来并做了简要总结。  
+无论如何都不能放弃呀！勤做笔记，加油！  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2019/08/16/2019%E7%94%B5%E8%B5%9B-%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A2%98%E7%9B%AEOpenMV%E6%80%BB%E7%BB%93/&title=2019电赛--无人机题目OpenMV总结 - 果子小酱&pics=https://cdn.shopify.com/s/files/1/0803/9211/t/7/assets/logo.png?36&summary=2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发挥不是特别好，但还是有所收获吧。这里，我把比赛自己用到的相关程序代码贴出来并做了简要总结。  
+无论如何都不能放弃呀！勤做笔记，加油！  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/08/30/Hexo%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%EF%BC%88%E5%AE%9E%E7%94%A8%EF%BC%81%EF%BC%89/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hexo主题升级方法（实用！）</p>
+          <p class='content'>最近，自己使用的Hexo博客主题Material-X有新的版本更新，使用普通的方法git clone会覆盖自己修改后的文件，使得DIY的主题丢失。通过查阅有关资料，总结出了以合并文件的形式更新当...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/07/31/CentOS%207%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8WordPress%E6%90%AD%E5%BB%BA%E7%94%B5%E5%8D%8F%E5%AE%98%E7%BD%91--%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/'>
+          <p class='title'>CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  
+
+
+
+环境准备
+一个阿里云或者...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%8D%E6%91%84%E6%9D%A1%E5%BD%A2%E7%A0%81%E5%92%8C%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%B9%B6%E5%82%A8%E5%AD%98SD%E5%8D%A1"><span class="toc-text">拍摄条形码和二维码并储存SD卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenMV%E5%B7%A1%E7%BA%BF"><span class="toc-text">OpenMV巡线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%88%E6%8B%9F%E5%90%88%E4%B8%A4%E6%9D%86%E9%97%B4%E7%9B%B4%E7%BA%BF%EF%BC%89"><span class="toc-text">方法一（拟合两杆间直线）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%88%E6%8B%9F%E5%90%88%E8%AF%86%E5%88%AB%E6%9D%A1%E7%BA%B9%E8%BE%B9%E7%BC%98%EF%BC%89"><span class="toc-text">方法二（拟合识别条纹边缘）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A3%9E%E6%9C%BA%E6%82%AC%E5%81%9C%E5%AE%9A%E5%9C%86%E7%82%B9"><span class="toc-text">飞机悬停定圆点</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="2019电赛--无人机题目OpenMV总结";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "",
+      appKey: "",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+
+  
+    
+<script src="/js/search.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+(function ($) {
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+})(jQuery);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script src='https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.2/js/instantclick-1.2.2.js' type='module'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/baidu_js_push.js'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js'></script>
+
+  <script src='https://v1.hitokoto.cn/?encode=js&select=%23hitokoto' defer></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/site_time.js'></script>
+
+
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+<!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <div id="loading-bar-wrapper"><script>NProgress.configure({parent:"#loading-bar-wrapper",trickleSpeed: 100})</script></div>
+    <script>
+      window.ShowLoading = function() {
+        NProgress.start();
+      };
+      window.HideLoading = function() {
+        NProgress.done();
+      }
+    </script>
+  
+</div>
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+      window.ShowLoading();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+      window.HideLoading();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.HideLoading();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

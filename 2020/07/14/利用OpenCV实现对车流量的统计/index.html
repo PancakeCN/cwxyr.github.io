@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>利用OpenCV实现对车流量的统计 - 果子小酱</title>
+  
+    <meta name="keywords" content="OpenCV, 图像处理">
+  
+
+  
+    <meta name="description" content="博主又有几个月没消息了。去哪里了呢？是的，考研闲暇之余，短时间摸鱼后，他，又灰溜溜地回来了。
+博主最近在干啥？详见一枚考研狗的执着
+">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css">
+
+  
+  
+
+  
+
+  
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css'/>
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">果子小酱</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              id="v4getting-started">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              id="faqs">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              id="examples">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              id="contributors">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              id="https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        利用OpenCV实现对车流量的统计
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/">C++</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/">OpenCV</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年7月14日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="利用OpenCV实现对车流量的统计" data-path="/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <p>博主又有几个月没消息了。去哪里了呢？是的，考研闲暇之余，短时间摸鱼后，他，又灰溜溜地回来了。</p>
+<p>博主最近在干啥？详见<a target="_blank" rel="noopener" href="https://blog.cwxyr.me/archives/195/">一枚考研狗的执着</a></p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/7b9c439ccbd61.jpg" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/7b9c439ccbd61.jpg" srcset="data:image/png;base64,666"></p>
+<a id="more"></a>
+
+<p>闲话少絮。开始正题——OpenCV的车流量统计。</p>
+<h2 id="调试平台"><a href="#调试平台" class="headerlink" title="调试平台"></a>调试平台</h2><ul>
+<li>OpenCV 4.2</li>
+<li>VS 2019</li>
+</ul>
+<h2 id="汽车识别原理——背景-前景分割算法"><a href="#汽车识别原理——背景-前景分割算法" class="headerlink" title="汽车识别原理——背景/前景分割算法"></a>汽车识别原理——背景/前景分割算法</h2><p>如今，检测和提取车辆时候，常用的方法有MOG2算法和KNN算法。MOG算法是以高斯混合模型（GMM）为基础的背景/前景分割算法。它是以2004年和2006年Z.Zivkovic的两篇文章为基础的。这个算法的一个特点是它为每一个像素选择一个合适数目的高斯分布。其主要原理为：在一个固定位置和角度固定的视频或图像中，提取分割图像或视频中运动的成分。此算法使用背景建模的方式，将整张图片或一帧视频分为前景和后景。此算法运行时，会将动态的前景与静止的后景相减，得出结果即为徐提取的运动物体的图像。</p>
+<p>K最近邻算法（KNN）是属于机器学习的一种算法。其主要原理为：给定一个已训练数据集，对新的输入实例，在训练数据集中找到与该实例最邻近（注：衡量邻近的标准以具体选取的某个特征而言，例如下面示意图中使用的特征为欧式距离）的K个实例，这K个实例的多数属于某个类，则判定该输入实例同属此类。如下图所示：训练者取k值，计算以欧氏距离k为半径的圆内其他类别的个数，图中中心小红点以k为半径的圆内三角形个数最多，则判定中心小红点为三角形。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/cec057608abab.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/cec057608abab.png" srcset="data:image/png;base64,666" alt="KNN"></p>
+<h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><h3 id="整体流程框架图"><a href="#整体流程框架图" class="headerlink" title="整体流程框架图"></a>整体流程框架图</h3><p>本程序的主要运行流程为：程序运行开始，首先从文件中获取上次保存的光流量检测矩形框数据（顶点坐标和矩形的长宽）；其后，分别初始化背景提取对象，使用MOG2和KNN两种算法。与此同时，建立一个鼠标回调函数，用于捕获鼠标左键（绘制矩形框）、中键（取消操作）和右键（保存矩形框数据到文件）的操作。</p>
+<p>此后，程序进入主循环状态。程序循环从视频中获取一帧的图像，先进行压缩处理，以提高后续运算速度。之后，将这一帧图片从RGB转为灰度图片。为了祛除灰度后可能出现的小毛刺杂点，再进行平滑滤波处理。此后，分别通过MOG2和KNN算法提取前景，并将提取后的视频显示出来。与此同时，获取每个矩形框中积分后的亮度和。</p>
+<p>最后，两个算法中，分别将实时得到的亮度和与所预设的阈值进行比较，当满足条件后，便认为一辆汽车通过矩形框，使得计数器加一。如此重复，统计整个视频中的车流量。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/adbf3842b3b5f.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/adbf3842b3b5f.png" srcset="data:image/png;base64,666" alt="流程图"></p>
+<h3 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h3><ol>
+<li><code>int detectTHD</code></li>
+</ol>
+<blockquote>
+<p>此参数为预设的亮度阈值。确定是否有汽车经过检测框中，其需要联合上一帧积分亮度和本次积分亮度后综合做出决定。</p>
+</blockquote>
+<ol start="2">
+<li><code>cv::Size newSize(frame.cols / 2, frame.rows / 2);</code></li>
+</ol>
+<blockquote>
+<p>此参数可以储存一帧视频缩小后的大小。</p>
+</blockquote>
+<ol start="3">
+<li><code>cv::Mat showMat;</code></li>
+</ol>
+<blockquote>
+<p>此参数用于储存最终显示的图像矩阵。</p>
+</blockquote>
+<h3 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h3><ol>
+<li><code>static void onMouse(int event, int x, int y, int flags, void\*)</code></li>
+</ol>
+<blockquote>
+<p>此函数主要用于检测鼠标左键、滑轮（中键）和右键的一些操作，用于绘制矩形检测框。</p>
+</blockquote>
+<ol start="2">
+<li><code>cv::resize(frame, newframe, newSize);</code></li>
+</ol>
+<blockquote>
+<p>此函数主要用于缩小原视频比例，提高计算机运算速度。</p>
+</blockquote>
+<ol start="3">
+<li><code>bgMOG2-\&gt;apply(greyFrame, mog2RES, update_bg_model ? -1 : 0);</code>以及<code>bgKNN-\&gt;apply(greyFrame, KNN, update_bg_model ? -1 : 0);</code></li>
+</ol>
+<blockquote>
+<p>apply函数主要用于两种算法的前景提取。此后，前景提取后的这帧视频保存于bgMOG2和bgKNN之中。</p>
+</blockquote>
+<ol start="4">
+<li><code>cv::rectangle(showMat, myLanneRect.at(k), cv::Scalar(255, 255, 255), 3);</code></li>
+</ol>
+<blockquote>
+<p>此函数主要用于前景提取后在其上面绘制矩形框。</p>
+</blockquote>
+<ol start="5">
+<li><code>cv::integral(subMat, sumMat, CV_32S);</code></li>
+</ol>
+<blockquote>
+<p>计算车道矩形框亮度积分图。</p>
+</blockquote>
+<ol start="6">
+<li><code>cv::putText();</code></li>
+</ol>
+<blockquote>
+<p>此函数可以按照要求，在视频图像上显示文字和统计数字。</p>
+</blockquote>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><ol>
+<li><strong>功能测试</strong></li>
+</ol>
+<p>进行车流量统计前，应当首先根据矩形框中出现车辆时，估算其亮度平均值作为亮度阈值，使其设定为一个较为合适的值，增强检测的灵敏性。由下图可知，当程序运行后，通过手动标记车道检测区域，得到2个矩形检测区。每次获得矩形中的积分亮度结果，当上从亮度结果大于阈值，且此次亮度结果小于阈值时，使车辆统计结果加一。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/6bb48c736d423.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/6bb48c736d423.png" srcset="data:image/png;base64,666" alt="功能测试"></p>
+<ol start="2">
+<li><strong>算法处理时间</strong></li>
+</ol>
+<p>由测试结果可知，相较于MOG2算法，KNN算法在运算处理上花费更多的时间，KNN算法时间约为MOG2时间的2倍。同时，算法处理总时间也相对较长，除了两个算法所带来的开销外，仍有其他附加代码所花费的时间。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/eddddc18068b8.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/eddddc18068b8.png" srcset="data:image/png;base64,666" alt="时间处理"></p>
+<ol start="3">
+<li><strong>缩放图片前后比较</strong></li>
+</ol>
+<p>程序中，可以使用<code>cv::resize();</code>函数进行图片的压缩，缩放图片对于检测速度有较大的影响。不使用缩放时，将视频中原始一帧的图像进行计算，经测试发现，处理速度很慢，显示的图片有明显的脱帧和卡顿现象，CPU占用率相当高，与压缩后（上图）相比，无论使用MOG2还是KNN算法，其处理时间均成倍增加。下图为不使用缩小图片尺寸条件下的处理时间。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/9ea91e56e17a6.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/9ea91e56e17a6.png" srcset="data:image/png;base64,666" alt="时间对比"></p>
+<ol start="4">
+<li><strong>矩形检测区亮度阈值的影响</strong></li>
+</ol>
+<p>阈值设置的合理性也是车流量检测准确性的一个重要指标。过高或过低的阈值均不能很好地反映车辆的经过和实现的统计。阈值过低，将会把视频中环境干扰噪声和其他运动对象（如三轮车和行人）当做汽车统计，使得统计结果偏大；同理，阈值过高，将很难检测到车辆的通过，当车辆进过矩形检测区时，无法实现车辆的统计。本程序中，经过检测矩形框内平均值的大致估算，将阈值<code>detectTHD</code>设置为900000。</p>
+<p>下图中显示了当阈值设定过小时的状况。右端矩形框（右车道）经过了一辆电动车，程序误认为汽车，并错误地将统计结果L1的值从1加为2。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/42ebf686fb258.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/42ebf686fb258.png" srcset="data:image/png;base64,666" alt="阈值过小"></p>
+<p>同理，当阈值设置过大，也会造成统计的不准确。下图显示了当阈值设定过大时的状况。可以发现，即使是车辆经过了矩形框，车辆统计变量L0和L1仍为0。</p>
+<p><img src="https://cdn2.sublimerui.top/2020/07/14/138c1e1078634.png" class="lazyload" data-srcset="https://cdn2.sublimerui.top/2020/07/14/138c1e1078634.png" srcset="data:image/png;base64,666" alt="阈值过大"></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>由以上分析可知，汽车流量的统计可以借助设定矩形区域内的亮度阈值来确定。为识别运动对象（汽车）的状态，可使用背景提取算法，如本软件中使用到的MOG2和KNN算法。通过比较不同算法间的处理时间，我们应当合理选择一种耗时短且提取车辆准确性高的一种算法。此外，识别统计车流量较为重要的一环便是设置合理的亮度阈值，亮度阈值设置的合理性直接关系到车流量统计准确性。</p>
+<h2 id="附：程序源代码"><a href="#附：程序源代码" class="headerlink" title="附：程序源代码"></a>附：程序源代码</h2><p><strong>此项目Github地址：</strong> <a target="_blank" rel="noopener" href="https://github.com/cwxyr/traffic-detection">https://github.com/cwxyr/traffic-detection</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgproc.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/features2d.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/video.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _DEBUG</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420d.lib&quot;</span>) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420.lib&quot;</span>) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//===【鼠标事件回调函数】===</span></span><br><span class="line"><span class="keyword">int</span> detectTHD = <span class="number">900000</span>;		<span class="comment">//亮度阈值：有车辆经过的；</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;		myLanneLightSum_Last;			<span class="comment">//车道亮度和：上一帧的</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;		myLanneVihicleCnt;				<span class="comment">//车道车辆计数器</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt;		myLanneRect;			<span class="comment">//车道矩形框；显示为红色；</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Point&gt;		myMousePoints;		<span class="comment">//鼠标点向量；显示为蓝色；</span></span><br><span class="line"><span class="keyword">int</span>	myMouseEventBusy = <span class="number">0</span>;							<span class="comment">//鼠标回调事件忙:简单的资源锁</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">onMouse</span><span class="params">(<span class="keyword">int</span> event, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> flags, <span class="keyword">void</span>*)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	myMouseEventBusy = <span class="number">1</span>;</span><br><span class="line">	cv::Point  mPoint;</span><br><span class="line">	cv::Rect mRect;</span><br><span class="line">	<span class="keyword">switch</span> (event)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> cv::EVENT_LBUTTONDOWN:		<span class="comment">//左键按下:增加myMousePoints中的点数</span></span><br><span class="line">		mPoint = cv::Point(x, y);</span><br><span class="line">		myMousePoints.push_back(mPoint);	<span class="comment">//将当前鼠标点推送到向量中；</span></span><br><span class="line">		<span class="keyword">if</span> (myMousePoints.size() &gt; <span class="number">4</span>)</span><br><span class="line">			myMousePoints.erase(myMousePoints.begin());	<span class="comment">//保证myMousePoints向量中节点数不大于4；</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> cv::EVENT_RBUTTONDOWN:		<span class="comment">//右键键按下：将myMousePoints中的4个点推送到矩形框向量myLanneRect</span></span><br><span class="line">		<span class="keyword">if</span> (myMousePoints.size() == <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> Xmin = <span class="number">100000</span>; <span class="keyword">int</span> Ymin = <span class="number">100000</span>;</span><br><span class="line">			<span class="keyword">int</span> Xmax = <span class="number">0</span>; <span class="keyword">int</span> Ymax = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				Xmin = <span class="built_in">std</span>::min(Xmin, myMousePoints.at(k).x);</span><br><span class="line">				Ymin = <span class="built_in">std</span>::min(Ymin, myMousePoints.at(k).y);</span><br><span class="line">				Xmax = <span class="built_in">std</span>::max(Xmax, myMousePoints.at(k).x);</span><br><span class="line">				Ymax = <span class="built_in">std</span>::max(Ymax, myMousePoints.at(k).y);</span><br><span class="line">			&#125;<span class="comment">//for k   &lt;&lt;&lt; === 用四个点构成矩形框的参数</span></span><br><span class="line">			mRect = cv::Rect(Xmin, Ymin, Xmax - Xmin, Ymax - Ymin);		<span class="comment">//构成矩形框</span></span><br><span class="line">			myLanneRect.push_back(mRect);</span><br><span class="line">			myLanneLightSum_Last.push_back(<span class="number">0</span>);</span><br><span class="line">			myLanneVihicleCnt.push_back(<span class="number">0</span>);</span><br><span class="line">			myMousePoints.clear();  <span class="comment">//清除鼠标点向量</span></span><br><span class="line"></span><br><span class="line">		&#125;<span class="comment">///if</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> cv::EVENT_MBUTTONDOWN:		<span class="comment">//中间键键按下：删除myMousePoints中的一个点；myMousePoints为空时，删除myLanneRect中的节点；</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;EVENT_MBUTTONDOWN\n&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (myMousePoints.size() &gt; <span class="number">0</span>)</span><br><span class="line">			myMousePoints.pop_back();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			myLanneRect.pop_back();</span><br><span class="line">			myLanneLightSum_Last.pop_back();</span><br><span class="line">			myLanneVihicleCnt.pop_back();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	&#125;<span class="comment">/////switch</span></span><br><span class="line">myMouseEventBusy = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> errorMSG[<span class="number">256</span>];</span><br><span class="line">	<span class="keyword">char</span> curPathName[<span class="number">384</span>] = <span class="string">&quot;&quot;</span>; <span class="keyword">char</span> curModulerPath[<span class="number">384</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line">	GetCurrentDirectory(<span class="number">383</span>, curModulerPath); </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Line39: curModulerPath = %s\n&quot;</span>, curModulerPath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//=======读取标记的矩形框文件内容到myLanneRect：=======</span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">ifndef</span> READ_RECT_FILE</span></span><br><span class="line">		FILE *pFILE = fopen(<span class="string">&quot;MarkRect.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (pFILE != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			cv::Rect  mRect;</span><br><span class="line">			<span class="keyword">while</span> (fgets(errorMSG, <span class="number">255</span>, pFILE) != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> rtn = <span class="built_in">sscanf</span>(errorMSG, <span class="string">&quot;%d %d %d %d&quot;</span>, &amp;mRect.x, &amp;mRect.y, &amp;mRect.width, &amp;mRect.height);</span><br><span class="line">				<span class="keyword">if</span> (rtn == <span class="number">4</span>) &#123;</span><br><span class="line">					myLanneRect.push_back(mRect);</span><br><span class="line">					myLanneLightSum_Last.push_back(<span class="number">0</span>);</span><br><span class="line">					myLanneVihicleCnt.push_back(<span class="number">0</span>);</span><br><span class="line">					&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			fclose(pFILE);</span><br><span class="line">		&#125;<span class="comment">///if</span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// !READ_RECT_FILE</span></span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span>  imgName = <span class="string">&quot;video-02.mp4&quot;</span>;</span><br><span class="line">	<span class="keyword">char</span> FilePath[<span class="number">384</span>];</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">strlen</span>(curPathName) &gt; <span class="number">0</span>)</span><br><span class="line">		<span class="built_in">sprintf</span>(FilePath, <span class="string">&quot;%s\\%s&quot;</span>, curPathName, imgName.c_str());	<span class="comment">//图片文件路径</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">sprintf</span>(FilePath, <span class="string">&quot;%s&quot;</span>, imgName.c_str());	<span class="comment">//图片文件路径</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//==【01】== 打开视频文件或摄像头</span></span><br><span class="line">		cv::VideoCapture cap; <span class="comment">//VideoCapture类实例化，使用缺省摄像头</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (<span class="number">0</span> &amp;&amp; <span class="string">&quot;UsingCam&quot;</span>)</span><br><span class="line">			cap.open(<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			cap.open(FilePath);</span><br><span class="line">		<span class="keyword">if</span> (!cap.isOpened()) <span class="comment">// check if we succeeded</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;error#73: 打开设备或文件失败，检查是否存在！回车退出！\n路径=%s\n&quot;</span>, FilePath);</span><br><span class="line">			fgets(FilePath, <span class="number">127</span>, <span class="built_in">stdin</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cv::Mat frame, newframe, greyFrame, floatFrame, lastFrame, frame2, mog2RES, KNN, out_frame, avgFrame;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; diffIMGvec;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//==【02】== 创建运动视频背景提取对象：用于分离背景和运动对象</span></span><br><span class="line">		cv::Ptr&lt;cv::BackgroundSubtractorMOG2&gt; bgMOG2 = cv::createBackgroundSubtractorMOG2();</span><br><span class="line">		cv::Ptr&lt;cv::BackgroundSubtractorKNN&gt; bgKNN = cv::createBackgroundSubtractorKNN();</span><br><span class="line">		bgMOG2-&gt;setVarThreshold(<span class="number">30</span>);</span><br><span class="line">		<span class="keyword">bool</span> update_bg_model = <span class="literal">true</span>;</span><br><span class="line">	<span class="comment">//==【03】== 命名几个显示窗口</span></span><br><span class="line">		cv::namedWindow(<span class="string">&quot;RawWnd&quot;</span>, cv::WINDOW_NORMAL);</span><br><span class="line">		cv::setMouseCallback(<span class="string">&quot;RawWnd&quot;</span>, onMouse, &amp;newframe);		<span class="comment">//设置鼠标事件回调函数（&quot;RawWnd&quot;窗口的）：同时传递彩色图像指针；</span></span><br><span class="line">		cv::namedWindow(<span class="string">&quot;Out_KNN&quot;</span>, cv::WINDOW_NORMAL);</span><br><span class="line">		cv::namedWindow(<span class="string">&quot;Out_MOG2&quot;</span>, cv::WINDOW_NORMAL);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> frameNums = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;)</span><br><span class="line">	&#123;</span><br><span class="line">		frame.rows = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">double</span> t1 = (<span class="keyword">double</span>)cv::getCPUTickCount();  <span class="comment">//开始统计时间</span></span><br><span class="line">		cap.read(frame);</span><br><span class="line">		<span class="keyword">if</span> (frame.rows == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="function">cv::Size <span class="title">newSize</span><span class="params">(frame.cols / <span class="number">2</span>, frame.rows / <span class="number">2</span>)</span></span>;  <span class="comment">//压缩图像，将其尺寸缩小</span></span><br><span class="line">		cv::resize(frame, newframe, newSize);</span><br><span class="line">		cv::cvtColor(newframe, greyFrame, cv::COLOR_RGB2GRAY);  <span class="comment">//转换为灰度图</span></span><br><span class="line">		cv::blur(greyFrame, greyFrame, cv::Size(<span class="number">3</span>, <span class="number">3</span>));		<span class="comment">//使用平滑运算</span></span><br><span class="line">	</span><br><span class="line">		<span class="keyword">double</span> t2 = (<span class="keyword">double</span>)cv::getCPUTickCount();</span><br><span class="line">		bgMOG2-&gt;apply(greyFrame, mog2RES, update_bg_model ? <span class="number">-1</span> : <span class="number">0</span>);   <span class="comment">//使用MOG2算法提取前景</span></span><br><span class="line">		<span class="keyword">double</span> t3 = (<span class="keyword">double</span>)cv::getCPUTickCount();  <span class="comment">//获取处理时间</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">double</span> t4 = (<span class="keyword">double</span>)cv::getCPUTickCount();</span><br><span class="line">		bgKNN-&gt;apply(greyFrame, KNN, update_bg_model ? <span class="number">-1</span> : <span class="number">0</span>);			<span class="comment">//使用KNN算法提取前景</span></span><br><span class="line">		<span class="keyword">double</span> t5 = (<span class="keyword">double</span>)cv::getCPUTickCount();  <span class="comment">//获取处理时间</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;MOG2 Time = %.3fms\n&quot;</span>, <span class="number">1e0</span> * (t3 - t2) / (<span class="keyword">double</span>)cv::getTickFrequency());</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;KNN Time = %.3fms\n&quot;</span>, <span class="number">1e0</span> * (t5 - t4) / (<span class="keyword">double</span>)cv::getTickFrequency());</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Total Time = %.3fms\n&quot;</span>, <span class="number">1e0</span> * (t5 - t1) / (<span class="keyword">double</span>)cv::getTickFrequency());</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;--------------------\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!mog2RES.empty())  <span class="comment">//计算MOG2算法下矩形框的积分亮度值</span></span><br><span class="line">		&#123;</span><br><span class="line">			cv::Mat showMat;</span><br><span class="line">			mog2RES.copyTo(showMat);</span><br><span class="line">			<span class="keyword">if</span> (myMouseEventBusy == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; myLanneRect.size(); k++)</span><br><span class="line">				&#123;</span><br><span class="line">					cv::rectangle(showMat, myLanneRect.at(k), cv::Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">3</span>);</span><br><span class="line">					cv::Mat subMat = mog2RES(myLanneRect.at(k));	<span class="comment">//再MOG2的前景提取结果中，取车道标记矩形框区域为subMat矩阵</span></span><br><span class="line">					cv::Mat sumMat;		<span class="comment">//积分图 == subMat的积分矩阵</span></span><br><span class="line">					cv::integral(subMat, sumMat, CV_32S);		<span class="comment">//设置积分矩阵的数据类型为uint；</span></span><br><span class="line">					<span class="keyword">int</span> sumValue = (<span class="keyword">int</span>)sumMat.at&lt;<span class="keyword">int</span>&gt;((<span class="keyword">int</span>)sumMat.rows - <span class="number">1</span>, (<span class="keyword">int</span>)sumMat.cols - <span class="number">1</span>);  <span class="comment">//获取积分图右下角的值，就是矩形框内亮度和；</span></span><br><span class="line">					<span class="built_in">sprintf</span>(errorMSG, <span class="string">&quot;sum = %d;&quot;</span>, sumValue);</span><br><span class="line">					cv::putText(showMat, errorMSG, cv::Point(myLanneRect.at(k).x, myLanneRect.at(k).y + <span class="number">4</span>), <span class="number">0.2</span>, <span class="number">1</span>, cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>);<span class="comment">//显示矩形框内的亮度和；</span></span><br><span class="line"></span><br><span class="line">				&#125;<span class="comment">//for k</span></span><br><span class="line">			&#125;<span class="comment">////if</span></span><br><span class="line">			cv::imshow(<span class="string">&quot;Out_MOG2&quot;</span>, showMat);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!KNN.empty())   <span class="comment">//计算KNN算法下矩形框的积分亮度值</span></span><br><span class="line">		&#123;</span><br><span class="line">			cv::Mat showMat;</span><br><span class="line">			KNN.copyTo(showMat);</span><br><span class="line">			<span class="keyword">if</span> (myMouseEventBusy == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; myLanneRect.size(); k++)</span><br><span class="line">				&#123;</span><br><span class="line"></span><br><span class="line">					cv::rectangle(showMat, myLanneRect.at(k), cv::Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">3</span>);</span><br><span class="line">					cv::Mat subMat = KNN(myLanneRect.at(k));	<span class="comment">//再KNN的前景提取结果中，取车道标记矩形框区域为subMat矩阵</span></span><br><span class="line">					cv::Mat sumMat;		<span class="comment">//积分图 == subMat的积分矩阵</span></span><br><span class="line">					cv::integral(subMat, sumMat, CV_32S);		<span class="comment">//设置积分矩阵的数据类型为uint；</span></span><br><span class="line">					<span class="keyword">int</span> sumValue = (<span class="keyword">int</span>)sumMat.at&lt;<span class="keyword">int</span>&gt;((<span class="keyword">int</span>)sumMat.rows - <span class="number">1</span>, (<span class="keyword">int</span>)sumMat.cols - <span class="number">1</span>);  <span class="comment">//获取积分图右下角的值，就是矩形框内亮度和；</span></span><br><span class="line">					<span class="built_in">sprintf</span>(errorMSG, <span class="string">&quot;sum = %d;&quot;</span>, sumValue);</span><br><span class="line">					cv::putText(showMat, errorMSG, cv::Point(myLanneRect.at(k).x, myLanneRect.at(k).y + <span class="number">4</span>), <span class="number">0.2</span>, <span class="number">1</span>, cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>);<span class="comment">//显示矩形框内的亮度和；</span></span><br><span class="line">				&#125;<span class="comment">//for k</span></span><br><span class="line">			&#125;<span class="comment">////if</span></span><br><span class="line">			imshow(<span class="string">&quot;Out_KNN&quot;</span>, showMat);</span><br><span class="line">		&#125;			</span><br><span class="line"></span><br><span class="line">		<span class="comment">//===&gt;&gt;&gt; 显示原始图像：显示车道标记信息 + 矩形框内亮度和 + 车流量统计</span></span><br><span class="line">		<span class="meta">#<span class="meta-keyword">ifndef</span> SHOW_RAW_MAT</span></span><br><span class="line">			cv::Mat showMat;</span><br><span class="line">			newframe.copyTo(showMat); <span class="comment">//矩阵复制</span></span><br><span class="line">			<span class="built_in">sprintf</span>(errorMSG, <span class="string">&quot;mL=add Point; mR=add Rect; mM=delete Point;&quot;</span>);</span><br><span class="line">			cv::putText(showMat, errorMSG, cv::Point(<span class="number">8</span>, <span class="number">32</span>), <span class="number">0.2</span>, <span class="number">1</span>, cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>);<span class="comment">//显示提示信息；</span></span><br><span class="line">			<span class="comment">//==&gt;&gt; 显示车道矩形框为红色 + 车流量统计 + 车流量显示</span></span><br><span class="line">			<span class="keyword">if</span> (myMouseEventBusy == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; myLanneRect.size(); k++)</span><br><span class="line">				&#123;</span><br><span class="line">					cv::rectangle(showMat, myLanneRect.at(k), cv::Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">3</span>);</span><br><span class="line">					cv::Mat subMat = mog2RES(myLanneRect.at(k));	<span class="comment">//再MOG2的前景提取结果中，取车道标记矩形框区域为subMat矩阵</span></span><br><span class="line">					cv::Mat sumMat;		<span class="comment">//积分图 == subMat的积分矩阵</span></span><br><span class="line">					cv::integral(subMat, sumMat, CV_32S);		<span class="comment">//设置积分矩阵的数据类型为int，计算车道矩形框内亮度积分图；</span></span><br><span class="line">					<span class="keyword">int</span> sumValue = (<span class="keyword">int</span>)sumMat.at&lt;<span class="keyword">int</span>&gt;((<span class="keyword">int</span>)sumMat.rows - <span class="number">1</span>, (<span class="keyword">int</span>)sumMat.cols - <span class="number">1</span>);  <span class="comment">//获取积分图右下角的值，就是矩形框内亮度和；</span></span><br><span class="line">					<span class="built_in">sprintf</span>(errorMSG, <span class="string">&quot;sum = %d;&quot;</span>, sumValue);</span><br><span class="line">					cv::putText(showMat, errorMSG, cv::Point(myLanneRect.at(k).x, myLanneRect.at(k).y + <span class="number">4</span>), <span class="number">0.2</span>, <span class="number">1</span>, cv::Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>);<span class="comment">//显示矩形框内的亮度和；</span></span><br><span class="line">					<span class="comment">//===&gt;&gt;&gt; 车流量统计：</span></span><br><span class="line">					<span class="keyword">if</span> (myLanneLightSum_Last.at(k) &gt; detectTHD &amp;&amp; sumValue &lt;= detectTHD)</span><br><span class="line">					&#123;</span><br><span class="line">						<span class="comment">//:: 车辆通过了矩形框：上一帧亮度和大于阈值，本帧亮度和小于阈值；车辆计数器自加；</span></span><br><span class="line">						myLanneVihicleCnt.at(k)++;</span><br><span class="line">						myLanneLightSum_Last.at(k) = sumValue;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> </span><br><span class="line">						myLanneLightSum_Last.at(k) = sumValue;  <span class="comment">//存储当前亮度和到myLanneLightSum_Last				</span></span><br><span class="line">				&#125;<span class="comment">//for k</span></span><br><span class="line"></span><br><span class="line">				<span class="comment">//===&gt;&gt; 车流量统计结果显示</span></span><br><span class="line">				cv::Mat topareaMat = showMat(cv::Rect(<span class="number">0</span>, <span class="number">0</span>, showMat.cols, <span class="number">75</span>));		<span class="comment">//最顶部48行置0；</span></span><br><span class="line">				topareaMat *= <span class="number">255</span>;</span><br><span class="line"></span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">string</span> strVihicleCnt = <span class="string">&quot;VihicleCnt: &quot;</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; myLanneRect.size(); k++)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">sprintf</span>(errorMSG, <span class="string">&quot;L%d = %d;&quot;</span>, k, myLanneVihicleCnt.at(k));</span><br><span class="line">					strVihicleCnt += errorMSG;</span><br><span class="line">				&#125;</span><br><span class="line">				cv::putText(showMat, strVihicleCnt.c_str(), cv::Point(<span class="number">8</span>, <span class="number">64</span>), <span class="number">0.2</span>, <span class="number">1</span>, cv::Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>); <span class="comment">//流量统计显示到彩色图片上</span></span><br><span class="line"></span><br><span class="line">			&#125;<span class="comment">////if</span></span><br><span class="line">			 <span class="comment">//==&gt;&gt; 显示正在标记的坐标点为蓝色：</span></span><br><span class="line">			<span class="keyword">if</span> (myMouseEventBusy == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt; myMousePoints.size(); k++)</span><br><span class="line">				&#123;</span><br><span class="line">					cv::line(showMat, myMousePoints.at(k - <span class="number">1</span>), myMousePoints.at(k), cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">15</span>);</span><br><span class="line">				&#125;<span class="comment">//for k</span></span><br><span class="line">				<span class="keyword">if</span>(myMousePoints.size() == <span class="number">4</span>)</span><br><span class="line">					cv::line(showMat, myMousePoints.at(<span class="number">0</span>), myMousePoints.at(<span class="number">3</span>), cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>);</span><br><span class="line">			&#125;<span class="comment">////if</span></span><br><span class="line"></span><br><span class="line">			imshow(<span class="string">&quot;RawWnd&quot;</span>, showMat);</span><br><span class="line">		<span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// SHOW_RAW_MAT</span></span></span><br><span class="line">		<span class="keyword">int</span> keycode = cv::waitKey(<span class="number">100</span>);		<span class="comment">//等待100ms</span></span><br><span class="line">		<span class="keyword">if</span> (keycode == <span class="string">&#x27;q&#x27;</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (keycode == <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			update_bg_model = !update_bg_model;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;Learn background is in state = %d\n&quot;</span>, update_bg_model);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (keycode == <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//写文件：记录标记的矩形框到文件中：</span></span><br><span class="line">			#ifndef WRITE_RECT_FILE</span><br><span class="line">			FILE *pFILE = fopen(<span class="string">&quot;MarkRect.txt&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">			<span class="keyword">if</span> (pFILE != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; myLanneRect.size(); k++) &#123;</span><br><span class="line">					<span class="built_in">fprintf</span>(pFILE, <span class="string">&quot;%d %d %d %d\n&quot;</span>, myLanneRect.at(k).x, myLanneRect.at(k).y, myLanneRect.at(k).width, myLanneRect.at(k).height);</span><br><span class="line">				&#125;</span><br><span class="line">				fclose(pFILE);</span><br><span class="line">			&#125;<span class="comment">///if</span></span><br><span class="line">			<span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// !WRITE_RECT_FILE</span></span></span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		frameNums++;</span><br><span class="line">		Sleep(<span class="number">50</span>);</span><br><span class="line">	&#125;<span class="comment">//for </span></span><br><span class="line">	cap.release();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/>http://example.com/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-14T09:34:37+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年7月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenCV-%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>OpenCV, 图像处理</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/&title=利用OpenCV实现对车流量的统计 - 果子小酱&summary=博主又有几个月没消息了。去哪里了呢？是的，考研闲暇之余，短时间摸鱼后，他，又灰溜溜地回来了。
+博主最近在干啥？详见一枚考研狗的执着
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/&title=利用OpenCV实现对车流量的统计 - 果子小酱&summary=博主又有几个月没消息了。去哪里了呢？是的，考研闲暇之余，短时间摸鱼后，他，又灰溜溜地回来了。
+博主最近在干啥？详见一枚考研狗的执着
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/07/14/%E5%88%A9%E7%94%A8OpenCV%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%BD%A6%E6%B5%81%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1/&title=利用OpenCV实现对车流量的统计 - 果子小酱&summary=博主又有几个月没消息了。去哪里了呢？是的，考研闲暇之余，短时间摸鱼后，他，又灰溜溜地回来了。
+博主最近在干啥？详见一枚考研狗的执着
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/10/10/hello-world/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hello World</p>
+          <p class='content'>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/03/17/%E5%BC%80%E5%BE%80-Travelling/'>
+          <p class='title'>开往-Travelling<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+互联网将人与人之间的距离大大减小，却还是形成了大大小小的孤岛。只有熟人间才知道彼此，而陌生人永远只能是陌生人。
+
+
+Travelling
+茫茫星辰中，去寻找不一样的、别致的星球。
+
+这就是开往...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%B9%B3%E5%8F%B0"><span class="toc-text">调试平台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%BD%E8%BD%A6%E8%AF%86%E5%88%AB%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E8%83%8C%E6%99%AF-%E5%89%8D%E6%99%AF%E5%88%86%E5%89%B2%E7%AE%97%E6%B3%95"><span class="toc-text">汽车识别原理——背景&#x2F;前景分割算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-text">整体结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E6%A1%86%E6%9E%B6%E5%9B%BE"><span class="toc-text">整体流程框架图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8F%82%E6%95%B0"><span class="toc-text">主要参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%87%BD%E6%95%B0"><span class="toc-text">主要函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%EF%BC%9A%E7%A8%8B%E5%BA%8F%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-text">附：程序源代码</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="利用OpenCV实现对车流量的统计";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "",
+      appKey: "",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+
+  
+    
+<script src="/js/search.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+(function ($) {
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+})(jQuery);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script src='https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.2/js/instantclick-1.2.2.js' type='module'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/baidu_js_push.js'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js'></script>
+
+  <script src='https://v1.hitokoto.cn/?encode=js&select=%23hitokoto' defer></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/site_time.js'></script>
+
+
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+<!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <div id="loading-bar-wrapper"><script>NProgress.configure({parent:"#loading-bar-wrapper",trickleSpeed: 100})</script></div>
+    <script>
+      window.ShowLoading = function() {
+        NProgress.start();
+      };
+      window.HideLoading = function() {
+        NProgress.done();
+      }
+    </script>
+  
+</div>
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+      window.ShowLoading();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+      window.HideLoading();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.HideLoading();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>
