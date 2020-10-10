@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,14 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：SQL Server - 果子小酱</title>
+  <title>CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置 - 果子小酱</title>
+  
+    <meta name="keywords" content="WordPress,电协官网">
   
 
+  
+    <meta name="description" content="因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  
+">
   
 
   <!-- feed -->
@@ -321,7 +324,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -396,75 +399,299 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/archives/6e81849.html">
-        学做图书管理系统--使用SQL Server创建并插入数据，建立触发器和存储过程
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>数据库（Database）可以说是前端网站搭建必不可少的部分了。<br>常见的数据库软件有微软的SQL Server和Linux服务器中常见的MySQL两种。</p>
-<p>|ू･ω･` )  </p>
-    
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">网站搭建</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2019-10-31</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2019年7月31日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/">Python</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置" data-path="/archives/826b26c7.html">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  </p>
+<p><img src="https://i.loli.net/2019/07/31/5d414ae98e34945456.jpg" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d414ae98e34945456.jpg" srcset="data:image/png;base64,666" alt="cover"></p>
+<a id="more"></a>
+
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><ol>
+<li><p>一个阿里云或者腾讯云服务器 </p>
+</li>
+<li><p>宝塔面板</p>
+</li>
+<li><p>CenOS 7+ 系统</p>
+</li>
+<li><p>LAMP/LNMP环境</p>
+</li>
+<li><p>WordPress安装包</p>
+</li>
+<li><p>远程连接工具Xshell和Xftp</p>
+</li>
+</ol>
+<hr>
+<h1 id="购买并配置服务器"><a href="#购买并配置服务器" class="headerlink" title="购买并配置服务器"></a>购买并配置服务器</h1><p>对于大多数国内用户来说，我们可以选着阿里云或者腾讯云的服务器，这里以选择腾讯云服务器为例，进入<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a>，注册并登录后进入管理后台。在<code>云产品</code>中选择<code>云服务器</code>：  </p>
+<p><img src="https://i.loli.net/2019/07/31/5d419d3f30d7127999.png" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d419d3f30d7127999.png" srcset="data:image/png;base64,666" alt="腾讯云1"></p>
+<p>之后，在云服务器里面选择<code>创建</code>：  </p>
+<p><img src="https://i.loli.net/2019/07/31/5d419dd53cadd16616.png" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d419dd53cadd16616.png" srcset="data:image/png;base64,666" alt="腾讯云2"></p>
+<p>选择适当的配置，我们可以选择<code>快速配置</code>，可以按照如下配置购买，其中推荐使用CentOS系统，相对来说较为稳定。</p>
+<p><img src="https://i.loli.net/2019/07/31/5d41a02986fd693847.png" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d41a02986fd693847.png" srcset="data:image/png;base64,666" alt="腾讯云3"></p>
+<p>购买后，选择左边的<code>SSH密钥</code>，新建后并下载（如我命名为xshell）</p>
+<p><img src="https://i.loli.net/2019/07/31/5d41a5462cda531468.png" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d41a5462cda531468.png" srcset="data:image/png;base64,666" alt="SSH密钥1"></p>
+<p>返回<code>实例</code>页面，点击右侧<code>更多</code>-&gt;<code>密码/密钥</code>-&gt;<code>加载密钥</code>，选择之前创建的密钥后，将会强制关机以绑定密钥。</p>
+<p><img src="https://i.loli.net/2019/07/31/5d41a660dfdf127999.png" class="lazyload" data-srcset="https://i.loli.net/2019/07/31/5d41a660dfdf127999.png" srcset="data:image/png;base64,666" alt="SSH密钥2"></p>
+<hr>
+<h1 id="下载Xshell和Xftp并远程连接"><a href="#下载Xshell和Xftp并远程连接" class="headerlink" title="下载Xshell和Xftp并远程连接"></a>下载Xshell和Xftp并远程连接</h1><ol>
+<li>Xshell<a target="_blank" rel="noopener" href="https://www.netsarang.com/zh/xshell-download/">下载地址</a></li>
+<li>Xftp<a target="_blank" rel="noopener" href="https://www.netsarang.com/zh/xftp-download/">下载地址</a></li>
+</ol>
+<h2 id="配置Xshell"><a href="#配置Xshell" class="headerlink" title="配置Xshell"></a>配置Xshell</h2><p>以下载Xshell为例，进入官网后右边有<code>免费授权页面</code>，填写相关信息后，收到回复邮件，打开链接即可免费下载（Xftp同理）  </p>
+<p><img src="https://i.loli.net/2019/08/04/m6erVNJikGXWtA3.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/m6erVNJikGXWtA3.png" srcset="data:image/png;base64,666" alt="Xshell免费下载">  </p>
+<p>下载并安装Xshell和Xftp后，点击<code>文件</code>-&gt;<code>新建</code>，在“连接”窗口，填写的<code>主机</code>为腾讯云服务器外网IP地址，在“用户身份验证”窗口，选择<code>方法</code>为“Public Key”,<code>用户名</code>为root，用户密钥选择之前下载的SSH密钥，点击<code>连接</code>即可成功连接至腾讯云服务器：</p>
+<p><img src="https://i.loli.net/2019/08/04/69ZH51GmLwBqsgj.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/69ZH51GmLwBqsgj.png" srcset="data:image/png;base64,666" alt="shell配置1">  </p>
+<p><img src="https://i.loli.net/2019/08/04/rMlsa57UfcbCTWO.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/rMlsa57UfcbCTWO.png" srcset="data:image/png;base64,666" alt="shell配置2"></p>
+<p>连接成功后的界面如下：  </p>
+<p><img src="https://i.loli.net/2019/08/04/qUBsvOgzDV1a5Tr.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/qUBsvOgzDV1a5Tr.png" srcset="data:image/png;base64,666" alt="shell连接成功">  </p>
+<h2 id="配置Xftp"><a href="#配置Xftp" class="headerlink" title="配置Xftp"></a>配置Xftp</h2><p>配置方法与Xshell类似，这里放上几张配置截图：  </p>
+<p><img src="https://i.loli.net/2019/08/04/qhubmzMlQOISoE8.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/qhubmzMlQOISoE8.png" srcset="data:image/png;base64,666" alt="ftp配置">  </p>
+<p><img src="https://i.loli.net/2019/08/04/fNnRMyYxqu8BWbC.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/fNnRMyYxqu8BWbC.png" srcset="data:image/png;base64,666" alt="ftp连接成功">  </p>
+<p><strong>如果你已经实现了上述结果，恭喜你，远程连接已配置成功。</strong></p>
+<p><strong>PS:<br>使用Xshell需要涉及Linux命令相关的知识。如不是很了解，建议点击这里的<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html">传送门</a>了解基本命令。</strong></p>
+<hr>
+<h1 id="安装宝塔面板"><a href="#安装宝塔面板" class="headerlink" title="安装宝塔面板"></a>安装宝塔面板</h1><p>安装宝塔面板主要是为了方便后期维护的方便，使得服务器配置可视化同时加快配置效率。  </p>
+<p>宝塔面板<a target="_blank" rel="noopener" href="https://www.bt.cn/">官方网站</a> </p>
+<p><strong>PS：安装宝塔面板时，一定要保证系统纯净，即服务器中没有安装其他的任何软件，否则可能会安装失败！！！</strong>   </p>
+<h2 id="放行出站入站端口"><a href="#放行出站入站端口" class="headerlink" title="放行出站入站端口"></a>放行出站入站端口</h2><p>在安装面板之前，需要放行特定的入站和出站端口号。回到腾讯云管理界面，选择<code>安全组</code>-&gt;<code>新建</code>： </p>
+<p><img src="https://i.loli.net/2019/08/04/ptxE3DG1CuNWMzO.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/ptxE3DG1CuNWMzO.png" srcset="data:image/png;base64,666" alt="安全组1"></p>
+<p>然后下载规则配置文件：  </p>
+<p><a target="_blank" rel="noopener" href="https://www.bt.cn/bbs/forum.php?mod=attachment&aid=NDExOHwyYTI5ZWM1NnwxNTY0ODUwMzQ4fDB8MTIyOQ==">sg_input_rules.xlsx</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bt.cn/bbs/forum.php?mod=attachment&aid=NDExOXxkZGE5M2NlNHwxNTY0ODUwMzQ4fDB8MTIyOQ==">sg_output_rules.xlsx</a> </p>
+<p>点击<code>导入规则</code>，将规则配置文件添加到入站和出站规则中：</p>
+<p><img src="https://i.loli.net/2019/08/04/kPi3QZyUNjYF5XM.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/kPi3QZyUNjYF5XM.png" srcset="data:image/png;base64,666" alt="入站和出站规则1"></p>
+<p>之后，点击<code>关联实例</code>-&gt;<code>新增关联</code>，将规则和服务器相互关联。</p>
+<p><img src="https://i.loli.net/2019/08/04/h2AovOxpckI5RLz.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/h2AovOxpckI5RLz.png" srcset="data:image/png;base64,666" alt="关联实例"></p>
+<h2 id="正式安装"><a href="#正式安装" class="headerlink" title="正式安装"></a>正式安装</h2><p>打开之前配置好的Xshell，对于CenOS 7+的系统，输入如下命令安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh</span><br></pre></td></tr></table></figure>
+
+<p>出现提示信息，询问是否安装宝塔面板，输入<code>y</code>并回车：</p>
+<p><img src="https://i.loli.net/2019/08/04/I7OYQWmrZpB3lgA.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/I7OYQWmrZpB3lgA.png" srcset="data:image/png;base64,666" alt="安装"></p>
+<p>耐心等待片刻后，出现如下界面，则安装成功。</p>
+<p><img src="https://i.loli.net/2019/08/04/PADRNi4qGy5ml1g.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/PADRNi4qGy5ml1g.png" srcset="data:image/png;base64,666" alt="成功"></p>
+<p>其中，给出了登录名和密码，登录地址为<code>http://你的IP或域名地址:8888/安全入口地址</code>的格式。浏览器输入登录地址并登录。如出现如下后台界面，则安装成功！！！</p>
+<p><img src="https://i.loli.net/2019/08/04/YMI4SZxPqzpRneL.png" class="lazyload" data-srcset="https://i.loli.net/2019/08/04/YMI4SZxPqzpRneL.png" srcset="data:image/png;base64,666" alt="宝塔面板"></p>
+<p>至此，<strong>服务器的基础配置已基本完成</strong>。建议到<code>面板设置</code>修改登录名和密码，便于记忆。</p>
+<hr>
+<p>感谢你的耐心阅读呀(๑<em>◡</em>๑)，原创不易，收藏并评论一下呗~</p>
+<p>接下来，我们可以配置服务器和安装WordPress等后续操作啦~</p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/archives/6e81849.html'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/archives/826b26c7.html>http://example.com/archives/826b26c7.html</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-10T11:36:30+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月10日</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/WordPress/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>WordPress</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%94%B5%E5%8D%8F%E5%AE%98%E7%BD%91/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>电协官网</p></a></div>
 
 
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/archives/826b26c7.html&title=CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置 - 果子小酱&summary=因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/archives/826b26c7.html&title=CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置 - 果子小酱&summary=因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/archives/826b26c7.html&title=CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置 - 果子小酱&summary=因下学期电协招新及20周年纪念的需要，需要搭建一个官方网站。我们以WordPress为例，介绍从购买一个服务器开始，到安装博客程序以及最后细节优化及注意事项。  
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/archives/d508d500.html'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2019电赛--无人机题目OpenMV总结</p>
+          <p class='content'>2019年电赛，前前后后经历了四天吧。从8月7好开始，到10号结束，浑浑噩噩，不分白昼地为了无人机的题目而努力吧。我的队友负责飞控，我也就负责视觉模块OpenMV程序的编写啦。虽然比赛下来感觉发...</p>
+        </a>
+      
+      
+        <a class='next' href='/archives/5af88fad.html'>
+          <p class='title'>实用的图片上传工具--PicGo<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>博客写多了，有了图片加载慢的问题。这里分享一个简单实用的图片上传工具——PicGo此工具可以一键上传图片，对于编写博客和网站来说很有帮助。  
+
+
+写在前面…刚开始学习网页前端和博客搭建的时候，...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -472,176 +699,28 @@
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">果子小酱</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0"
-            ><div class='name'>学习笔记</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0C"
-            ><div class='name'>C++</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0OpenCV"
-            ><div class='name'>OpenCV</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0Python"
-            ><div class='name'>Python</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0E59BBEE5BDA2E7958CE99DA2"
-            ><div class='name'>图形界面</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0E695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" href="/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"
-            id="categoriesE5B08FE5B7A5E585B7"
-            ><div class='name'>小工具</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%9D%82%E8%AE%B0/" href="/categories/%E6%9D%82%E8%AE%B0/"
-            id="categoriesE69D82E8AEB0"
-            ><div class='name'>杂记</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" href="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"
-            id="categoriesE79FA5E8AF86E680BBE7BB93"
-            ><div class='name'>知识总结</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E8%AF%95/" href="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E8%AF%95/"
-            id="categoriesE79FA5E8AF86E680BBE7BB93E8AEA1E7AE97E69CBAE88083E8AF95"
-            ><div class='name'>计算机考试</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" href="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"
-            id="categoriesE7BD91E7AB99E690ADE5BBBA"
-            ><div class='name'>网站搭建</div><div class='badge'>(2)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEXshell"><span class="toc-text">配置Xshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEXftp"><span class="toc-text">配置Xftp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BE%E8%A1%8C%E5%87%BA%E7%AB%99%E5%85%A5%E7%AB%99%E7%AB%AF%E5%8F%A3"><span class="toc-text">放行出站入站端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="toc-text">正式安装</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/CDN/" style="font-size: 14px; color: #999">CDN</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Hexo/" style="font-size: 14px; color: #999">Hexo</a> <a href="/tags/OpenCV-%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 17.33px; color: #828282">OpenCV, 图像处理</a> <a href="/tags/OpenMV/" style="font-size: 17.33px; color: #828282">OpenMV</a> <a href="/tags/PyQt/" style="font-size: 14px; color: #999">PyQt</a> <a href="/tags/Python/" style="font-size: 17.33px; color: #828282">Python</a> <a href="/tags/Qt-Designer/" style="font-size: 14px; color: #999">Qt Designer</a> <a href="/tags/SQL-Server/" style="font-size: 14px; color: #999">SQL Server</a> <a href="/tags/VPS/" style="font-size: 14px; color: #999">VPS</a> <a href="/tags/WordPress/" style="font-size: 14px; color: #999">WordPress</a> <a href="/tags/pyodbc/" style="font-size: 14px; color: #999">pyodbc</a> <a href="/tags/%E5%8F%8B%E9%93%BE/" style="font-size: 14px; color: #999">友链</a> <a href="/tags/%E5%9B%BE%E5%BA%8A/" style="font-size: 14px; color: #999">图床</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 14px; color: #999">域名</a> <a href="/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" style="font-size: 20.67px; color: #6c6c6c">思维导图</a> <a href="/tags/%E7%94%B5%E5%8D%8F%E5%AE%98%E7%BD%91/" style="font-size: 14px; color: #999">电协官网</a> <a href="/tags/%E7%94%B5%E8%B5%9B/" style="font-size: 17.33px; color: #828282">电赛</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%9B%E7%BA%A7/" style="font-size: 24px; color: #555">计算机四级</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -651,8 +730,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="CenOS 7环境下使用WordPress搭建电协官网--（1）基础配置";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

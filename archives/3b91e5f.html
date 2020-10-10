@@ -19,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>果子小酱</title>
+  <title>学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面 - 果子小酱</title>
+  
+    <meta name="keywords" content="PyQt,GUI,Qt Designer">
   
 
+  
+    <meta name="description" content="由于学校课程的项目，最近最近在学习如何利用Python语言和SQL Server编写一个读者图书借阅、查询管理的小程序。以此为契机吧，自己便开始了学习之路~这篇文章主要介绍自己如何使用PyQt5编写GUI界面。  ">
   
 
   <!-- feed -->
@@ -319,7 +323,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper page dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -395,7 +399,7 @@
         
 
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow article-type-page" id="page" itemscope itemprop="blogPost">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
 
 
@@ -404,12 +408,155 @@
     
     
     
+      <h1 class="title">
+        学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/">Python</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/">图形界面</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2019年10月31日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面" data-path="/archives/3b91e5f.html">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
   </div>
 
 
   
-  wFpBInlzzK
+  <p>由于学校课程的项目，最近最近在学习如何利用Python语言和SQL Server编写一个读者图书借阅、查询管理的小程序。以此为契机吧，自己便开始了学习之路~<br>这篇文章主要介绍自己如何使用PyQt5编写GUI界面。  </p>
+<a id="more"></a>
+
+<h2 id="自己使用到的工具"><a href="#自己使用到的工具" class="headerlink" title="自己使用到的工具"></a>自己使用到的工具</h2><ul>
+<li>VS Code</li>
+<li>PyQt5依赖包</li>
+<li>Qt Designer</li>
+</ul>
+<h2 id="Python几种常见的GUI库"><a href="#Python几种常见的GUI库" class="headerlink" title="Python几种常见的GUI库"></a>Python几种常见的GUI库</h2><h3 id="Tkinter"><a href="#Tkinter" class="headerlink" title="Tkinter"></a>Tkinter</h3><p>Tkinter是Python自带的量轻级的简单GUI库，使用也较为简单。但是Tkinter之适用于基础和小型程序的开发，界面的美观程度也相对有限。</p>
+<p><strong>在网上找到了比较全面介绍Tkinter的使用教程</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shwee/p/9427975.html">https://www.cnblogs.com/shwee/p/9427975.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-gui-tkinter.html">https://www.runoob.com/python/python-gui-tkinter.html</a></li>
+</ol>
+<h3 id="PyQt5"><a href="#PyQt5" class="headerlink" title="PyQt5"></a>PyQt5</h3><p>PyQt5算是比较成熟的GUI库了，PyQt从著名的由C++编写的Qt库移植封装到Python而来。同时，利用PyQt5开发GUI比较美观，同时利用<strong>Qt Designer</strong>可以拖动一些控件，实现GUI可视化的快速开发，可通过pyuic5工具转化为<code>.py</code>文件。在这里，自己选择了PyQt5开发前端界面。</p>
+<h2 id="安装PyQt5和Qt-Designer"><a href="#安装PyQt5和Qt-Designer" class="headerlink" title="安装PyQt5和Qt Designer"></a>安装PyQt5和Qt Designer</h2><p>安装过程较为简单，只需在命令行窗口输入两行命令（在国内可以使用清华大学tuna镜像站，下载依赖包更快）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install PyQt5 -i https://pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#安装PyQt5</span></span><br><span class="line">pip install PyQt5-tools -i https://pypi.tuna.tsinghua.edu.cn/simple <span class="comment"># 安装Qt Designer</span></span><br></pre></td></tr></table></figure>
+
+<p>如图：</p>
+<p><fancybox><img src="https://i.loli.net/2019/10/24/PFBobrTWEOkzQXK.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/24/PFBobrTWEOkzQXK.png" srcset="data:image/png;base64,666" alt="安装pyqt5-tools"></fancybox></p>
+<p><strong>PS：若使用Anaconda，会省去很多环境配置步骤，这里只需安装PyQt5-tools即可，命令同上。</strong>如果想使用Anaconda，这里有详尽的配置及使用方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ITLearnHall/article/details/81708148">Anaconda详细安装及使用教程（带图文）</a></p>
+<hr>
+<p>安装成功后，Qt Designer会放在Python（或Anaconda）安装路径，即<code>安装路径\Python37\Lib\site-packages\pyqt5-tools\Qt\bin</code>或者<code>安装路径\Anaconda3\Lib\site-packages\pyqt5-tools\Qt\bin</code>中，找到<code>designer.exe</code>运行即可。</p>
+<p><strong>PS：为了今后打开方便，可以创建一个快捷方式哦~</strong></p>
+<p><fancybox><img src="https://i.loli.net/2019/10/24/XZRrHEde2uYvFhn.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/24/XZRrHEde2uYvFhn.png" srcset="data:image/png;base64,666" alt="找到designer"></fancybox></p>
+<p>Qt Designer界面如下：</p>
+<p><fancybox><img src="https://i.loli.net/2019/10/24/pu2IiGzkDenbyCJ.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/24/pu2IiGzkDenbyCJ.png" srcset="data:image/png;base64,666" alt="打开designer"></fancybox></p>
+<p><strong>其中：</strong> 左栏为一些常用的一些控件，可以拖放到窗口里面；右栏为不同的控件的值的设定，选中对应的控件便可以编辑。</p>
+<p><fancybox><img src="https://i.loli.net/2019/10/31/guvYLZ6CyVxdswq.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/31/guvYLZ6CyVxdswq.png" srcset="data:image/png;base64,666" alt="控件"></fancybox></p>
+<blockquote>
+<p><strong>关于Qt Designer的使用方法，可以自行找找度娘，使用方法很多啦~~这里放一个教程：</strong><a target="_blank" rel="noopener" href="https://www.jianshu.com/nb/26159952">PyQt5速成教程</a></p>
+</blockquote>
+<h2 id="导出为-py文件"><a href="#导出为-py文件" class="headerlink" title="导出为.py文件"></a>导出为.py文件</h2><blockquote>
+<p>当我们按照自己的需求，设计好了相关的界面后，便可以导入成<code>.py</code>文件啦~</p>
+</blockquote>
+<p>设计保存后，桌面上会有一个<code>.ui</code>文件，这个就是Qt Designer生成的XML格式的文件。</p>
+<p><img src="https://i.loli.net/2019/10/31/MLTOtmrXivhP3GH.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/31/MLTOtmrXivhP3GH.png" srcset="data:image/png;base64,666" alt=".ui"></p>
+<p>这里，我们使用<code>pyuic5</code>这个插件转换文件格式。转到这个文件夹目录后，在命令行窗口输入如下格式命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyuic5 - o 目标文件名.py 源文件名.ui</span><br></pre></td></tr></table></figure>
+
+<p>如我的这样做的：</p>
+<p><img src="https://i.loli.net/2019/10/31/k4U1hIdCz9sNBVD.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/31/k4U1hIdCz9sNBVD.png" srcset="data:image/png;base64,666" alt="cmd"></p>
+<p>此时，会发现，文件夹多了一个转换后的同名<code>.py</code>文件：</p>
+<p><img src="https://i.loli.net/2019/10/31/uFjVr2PlYImLR3N.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/31/uFjVr2PlYImLR3N.png" srcset="data:image/png;base64,666" alt="同名文件"></p>
+<p>打开<code>SetupUi.py</code>文件，发现里面代码很长，但是已经<strong>自动生成</strong>了，这样少了很多敲代码的步骤呢~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Form implementation generated from reading ui file &#x27;SetupUi.ui&#x27;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Created by: PyQt5 UI code generator 5.13.0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># WARNING! All changes made in this file will be lost!</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PyQt5 <span class="keyword">import</span> QtCore, QtGui, QtWidgets</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ui_mainWindow</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setupUi</span>(<span class="params">self, mainWindow</span>):</span></span><br><span class="line">        mainWindow.setObjectName(<span class="string">&quot;mainWindow&quot;</span>)</span><br><span class="line">        mainWindow.resize(<span class="number">561</span>, <span class="number">491</span>)</span><br><span class="line">        mainWindow.setAnimated(<span class="literal">False</span>)</span><br><span class="line">        self.centralwidget = QtWidgets.QWidget(mainWindow)</span><br><span class="line">        self.centralwidget.setObjectName(<span class="string">&quot;centralwidget&quot;</span>)</span><br><span class="line">        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)</span><br><span class="line">        self.verticalLayout.setObjectName(<span class="string">&quot;verticalLayout&quot;</span>)</span><br><span class="line">        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)</span><br><span class="line">        self.tabWidget.setObjectName(<span class="string">&quot;tabWidget&quot;</span>)</span><br><span class="line">        self.tab = QtWidgets.QWidget()</span><br><span class="line">        self.tab.setObjectName(<span class="string">&quot;tab&quot;</span>)</span><br><span class="line">        self.formLayout = QtWidgets.QFormLayout(self.tab)</span><br><span class="line">        self.formLayout.setObjectName(<span class="string">&quot;formLayout&quot;</span>)</span><br><span class="line">        self.label1 = QtWidgets.QLabel(self.tab)</span><br><span class="line">        self.label1.setObjectName(<span class="string">&quot;label1&quot;</span>)</span><br><span class="line">        self.formLayout.setWidget(<span class="number">0</span>, QtWidgets.QFormLayout.FieldRole, self.label1)</span><br><span class="line">        self.graphicsView = QtWidgets.QGraphicsView(self.tab)</span><br><span class="line">        brush = QtGui.QBrush(QtGui.QColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        brush.setStyle(QtCore.Qt.NoBrush)</span><br><span class="line">        self.graphicsView.setBackgroundBrush(brush)</span><br><span class="line">        self.graphicsView.setObjectName(<span class="string">&quot;graphicsView&quot;</span>)</span><br><span class="line">        self.formLayout.setWidget(<span class="number">3</span>, QtWidgets.QFormLayout.FieldRole, self.graphicsView)</span><br><span class="line">        self.buttonBox = QtWidgets.QDialogButtonBox(self.tab)</span><br><span class="line">        self.buttonBox.setStatusTip(<span class="string">&quot;&quot;</span>)</span><br><span class="line">        self.buttonBox.setAccessibleName(<span class="string">&quot;&quot;</span>)</span><br><span class="line">        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)</span><br><span class="line">        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Close|QtWidgets.QDialogButtonBox.Ok)</span><br><span class="line">        self.buttonBox.setCenterButtons(<span class="literal">False</span>)</span><br><span class="line">        self.buttonBox.setObjectName(<span class="string">&quot;buttonBox&quot;</span>)</span><br><span class="line">        self.formLayout.setWidget(<span class="number">4</span>, QtWidgets.QFormLayout.FieldRole, self.buttonBox)</span><br><span class="line">        self.frame = QtWidgets.QFrame(self.tab)</span><br><span class="line">        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)</span><br><span class="line">        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)</span><br><span class="line">        self.frame.setObjectName(<span class="string">&quot;frame&quot;</span>)</span><br><span class="line">        self.formLayout.setWidget(<span class="number">5</span>, QtWidgets.QFormLayout.LabelRole, self.frame)</span><br><span class="line">        self.tabWidget.addTab(self.tab, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        self.tab_2 = QtWidgets.QWidget()</span><br><span class="line">        self.tab_2.setObjectName(<span class="string">&quot;tab_2&quot;</span>)</span><br><span class="line">        self.tabWidget.addTab(self.tab_2, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        self.verticalLayout.addWidget(self.tabWidget)</span><br><span class="line">        mainWindow.setCentralWidget(self.centralwidget)</span><br><span class="line">        self.menubar = QtWidgets.QMenuBar(mainWindow)</span><br><span class="line">        self.menubar.setGeometry(QtCore.QRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">561</span>, <span class="number">23</span>))</span><br><span class="line">        self.menubar.setObjectName(<span class="string">&quot;menubar&quot;</span>)</span><br><span class="line">        self.menu_options = QtWidgets.QMenu(self.menubar)</span><br><span class="line">        self.menu_options.setObjectName(<span class="string">&quot;menu_options&quot;</span>)</span><br><span class="line">        self.menu_about = QtWidgets.QMenu(self.menubar)</span><br><span class="line">        self.menu_about.setObjectName(<span class="string">&quot;menu_about&quot;</span>)</span><br><span class="line">        mainWindow.setMenuBar(self.menubar)</span><br><span class="line">        self.statusbar = QtWidgets.QStatusBar(mainWindow)</span><br><span class="line">        self.statusbar.setObjectName(<span class="string">&quot;statusbar&quot;</span>)</span><br><span class="line">        mainWindow.setStatusBar(self.statusbar)</span><br><span class="line">        self.action = QtWidgets.QAction(mainWindow)</span><br><span class="line">        self.action.setCheckable(<span class="literal">False</span>)</span><br><span class="line">        self.action.setWhatsThis(<span class="string">&quot;&quot;</span>)</span><br><span class="line">        self.action.setShortcutContext(QtCore.Qt.WindowShortcut)</span><br><span class="line">        self.action.setObjectName(<span class="string">&quot;action&quot;</span>)</span><br><span class="line">        self.action_2 = QtWidgets.QAction(mainWindow)</span><br><span class="line">        self.action_2.setShortcutContext(QtCore.Qt.ApplicationShortcut)</span><br><span class="line">        self.action_2.setMenuRole(QtWidgets.QAction.QuitRole)</span><br><span class="line">        self.action_2.setObjectName(<span class="string">&quot;action_2&quot;</span>)</span><br><span class="line">        self.menu_options.addAction(self.action_2)</span><br><span class="line">        self.menu_about.addAction(self.action)</span><br><span class="line">        self.menubar.addAction(self.menu_options.menuAction())</span><br><span class="line">        self.menubar.addAction(self.menu_about.menuAction())</span><br><span class="line"></span><br><span class="line">        self.retranslateUi(mainWindow)</span><br><span class="line">        self.tabWidget.setCurrentIndex(<span class="number">0</span>)</span><br><span class="line">        QtCore.QMetaObject.connectSlotsByName(mainWindow)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">retranslateUi</span>(<span class="params">self, mainWindow</span>):</span></span><br><span class="line">        _translate = QtCore.QCoreApplication.translate</span><br><span class="line">        mainWindow.setWindowTitle(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;MainWindow&quot;</span>))</span><br><span class="line">        self.tabWidget.setToolTip(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span>))</span><br><span class="line">        self.label1.setText(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;学生图书管理系统&quot;</span>))</span><br><span class="line">        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;Tab 1&quot;</span>))</span><br><span class="line">        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;Tab 2&quot;</span>))</span><br><span class="line">        self.menu_options.setTitle(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;选项&quot;</span>))</span><br><span class="line">        self.menu_about.setTitle(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;关于&quot;</span>))</span><br><span class="line">        self.action.setText(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;关于作者&quot;</span>))</span><br><span class="line">        self.action_2.setText(_translate(<span class="string">&quot;mainWindow&quot;</span>, <span class="string">&quot;退出&quot;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用VS-Code编写基础程序"><a href="#使用VS-Code编写基础程序" class="headerlink" title="使用VS Code编写基础程序"></a>使用VS Code编写基础程序</h2><p>使用VS Code打开这个文件夹，秉承界面和其他操作分离的原则，我们可以新建一个<code>.py</code>文件，如命名为<code>ConnetDatabase.py</code>，从而调用刚才生成的界面模块，新建一个<code>MyWindow</code>的子类，继承于<code>QMainWindow</code>和<code>Ui_mainWindow</code>父类，并初始化，编写构造函数即可。</p>
+<p>最后，创建一个名为<code>myWin</code>的对象，启动即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QMainWindow  <span class="comment">#导入PyQt相关模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span>  SetupUi <span class="keyword">import</span> *  <span class="comment">#导入之前新生成的窗口模块</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWindow</span>(<span class="params">QMainWindow, Ui_mainWindow</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, parent=None</span>):</span></span><br><span class="line">        super(MyWindow, self).__init__(parent)</span><br><span class="line">        self.setupUi(self)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    myWin = MyWindow()  <span class="comment">#创建对象</span></span><br><span class="line">    myWin.show()    <span class="comment">#显示窗口</span></span><br><span class="line">    sys.exit(app.exec_())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行后的效果如图：</p>
+<p><img src="https://i.loli.net/2019/10/31/cjeohUJV6giNySr.png" class="lazyload" data-srcset="https://i.loli.net/2019/10/31/cjeohUJV6giNySr.png" srcset="data:image/png;base64,666" alt="运行"></p>
+<blockquote>
+<p><strong>至此，基本的窗口创建成功，便可以开始写后端的具体代码实现了~</strong></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37773766/article/details/81535876">八款常用的 Python GUI 开发框架推荐</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41929524/article/details/81456308">Python制作小软件——1. 安装并使用PyQt5进行界面设计</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc-snapshots.qt.io/qt5-dev/designer-to-know.html#">Qt官网——Getting to Know Qt Designer</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc-snapshots.qt.io/qt5-dev/qtdesigner-manual.html">Qt官网——Qt Designer Manual</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/9291927/2422187">PyQt5快速入门（二）PyQt5信号槽机制</a></li>
+<li><a target="_blank" rel="noopener" href="http://code.py40.com/1948.html">【第一节】PyQt5简介</a></li>
+</ol>
+
   
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/archives/3b91e5f.html>http://example.com/archives/3b91e5f.html</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
   
   
     
@@ -430,6 +577,9 @@
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/PyQt/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>PyQt</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/GUI/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>GUI</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Qt-Designer/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Qt Designer</p></a></div>
+
 
         
       
@@ -441,7 +591,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/baidu_verify_wFpBInlzzK.html&title= - 果子小酱&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/archives/3b91e5f.html&title=学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面 - 果子小酱&summary=由于学校课程的项目，最近最近在学习如何利用Python语言和SQL Server编写一个读者图书借阅、查询管理的小程序。以此为契机吧，自己便开始了学习之路~这篇文章主要介绍自己如何使用PyQt5编写GUI界面。  "
           
           >
           
@@ -453,7 +603,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/baidu_verify_wFpBInlzzK.html&title= - 果子小酱&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/archives/3b91e5f.html&title=学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面 - 果子小酱&summary=由于学校课程的项目，最近最近在学习如何利用Python语言和SQL Server编写一个读者图书借阅、查询管理的小程序。以此为契机吧，自己便开始了学习之路~这篇文章主要介绍自己如何使用PyQt5编写GUI界面。  "
           
           >
           
@@ -465,7 +615,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/baidu_verify_wFpBInlzzK.html&title= - 果子小酱&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/archives/3b91e5f.html&title=学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面 - 果子小酱&summary=由于学校课程的项目，最近最近在学习如何利用Python语言和SQL Server编写一个读者图书借阅、查询管理的小程序。以此为契机吧，自己便开始了学习之路~这篇文章主要介绍自己如何使用PyQt5编写GUI界面。  "
           
           >
           
@@ -492,6 +642,25 @@
   
   
 
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/archives/6e81849.html'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>学做图书管理系统--使用SQL Server创建并插入数据，建立触发器和存储过程</p>
+          <p class='content'>数据库（Database）可以说是前端网站搭建必不可少的部分了。常见的数据库软件有微软的SQL Server和Linux服务器中常见的MySQL两种。
+|ू･ω･` )  
+
+
+在连接数据库之前...</p>
+        </a>
+      
+      
+        <a class='next' href='/archives/d874e9c.html'>
+          <p class='title'>国内外常用VPS + 域名注册 + CDN，搭建属于自己的博客（新手推荐）<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>本文大概概括总结了自己学习前端技术以来各种实用的VPS、域名注册以及实用的CDN提供商。特别是对于新手来说，了解一些相关知识挺不容易的。写一些总结希望会对大家有一定的帮助吧。本文章会不定时更新，...</p>
+        </a>
+      
+    </div>
   
 </article>
 
@@ -521,6 +690,20 @@
 
 
 
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%B7%B1%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-text">自己使用到的工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84GUI%E5%BA%93"><span class="toc-text">Python几种常见的GUI库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tkinter"><span class="toc-text">Tkinter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PyQt5"><span class="toc-text">PyQt5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85PyQt5%E5%92%8CQt-Designer"><span class="toc-text">安装PyQt5和Qt Designer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%B8%BA-py%E6%96%87%E4%BB%B6"><span class="toc-text">导出为.py文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8VS-Code%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80%E7%A8%8B%E5%BA%8F"><span class="toc-text">使用VS Code编写基础程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+    </div>
+  </section>
+
 
   
 
@@ -536,8 +719,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="学做图书管理系统--利用Python的PyQt5编写简单的GUI图形界面";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

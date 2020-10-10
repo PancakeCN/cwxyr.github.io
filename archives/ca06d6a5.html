@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：SQL Server - 果子小酱</title>
+  <title>学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库 - 果子小酱</title>
   
 
+  
+    <meta name="description" content="这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 ">
   
 
   <!-- feed -->
@@ -321,7 +321,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -396,75 +396,250 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
+          
+            
+
+          
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/archives/6e81849.html">
-        学做图书管理系统--使用SQL Server创建并插入数据，建立触发器和存储过程
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>数据库（Database）可以说是前端网站搭建必不可少的部分了。<br>常见的数据库软件有微软的SQL Server和Linux服务器中常见的MySQL两种。</p>
-<p>|ू･ω･` )  </p>
-    
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2019年12月6日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库" data-path="/archives/ca06d6a5.html">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-31</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/">Python</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 </p>
+<a id="more"></a>
+
+<p>在连接数据库之前，需要确保电脑上有以下环境和软件：</p>
+<ul>
+<li>（必备）任意一种数据库（这里选择SQL Server）</li>
+<li>（必备）Python 3，可以在Python的<a target="_blank" rel="noopener" href="https://www.python.org/">官网下载</a>对应的版本</li>
+<li>（必备）任意一种代码编辑器或IDE（本教程使用的<strong>VS Code</strong>和<strong>SSMS</strong>两种，也可使用Python自带的IDLE或者Pycharm）</li>
+<li>（可选）使用Python包管理器Anaconda，或者使用Python自带的pip</li>
+</ul>
+<h2 id="安装pyodbc"><a href="#安装pyodbc" class="headerlink" title="安装pyodbc"></a>安装pyodbc</h2><ol>
+<li><p>首先，使用组合键<code>Win + R</code>调出<strong>运行</strong>窗口，输入<code>cmd</code>，打开命令行。</p>
+</li>
+<li><p>在命令行（CMD）界面，如使用了Anaconda，则需要激活conda环境（如没有Anaconda，则可以跳过这一步）：</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activate</span><br></pre></td></tr></table></figure>
+<p>当光标前面出现了<code>(base) C:\Users\用户名&gt;</code>，则说明进入了conda的base环境。</p>
+<ol start="3">
+<li>输入如下任意其中一种命令：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install pyodbc #常规方法，pip安装</span><br><span class="line">conda install pyodbc #如果安装了Anaconda，则可以使用conda命令</span><br></pre></td></tr></table></figure>
+<p>当出现提示确认是否安装，输入<code>y</code>，则可以等待安装完成。</p>
+<p><fancybox><img src="https://i.loli.net/2019/11/09/V9UckmeExLywRTr.png" class="lazyload" data-srcset="https://i.loli.net/2019/11/09/V9UckmeExLywRTr.png" srcset="data:image/png;base64,666" alt="install"></fancybox></p>
+<h3 id="安装SQL-Server的ODBC驱动程序和命令行工具"><a href="#安装SQL-Server的ODBC驱动程序和命令行工具" class="headerlink" title="安装SQL Server的ODBC驱动程序和命令行工具"></a>安装SQL Server的ODBC驱动程序和命令行工具</h3><ol>
+<li>进入微软的此页面下载安装<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-CN/download/details.aspx?id=56567">ODBC驱动程序</a></li>
+<li>进入微软的此页面下载安装<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=53591">命令行工具</a></li>
+</ol>
+<p>在命令行输入如下命令登录SQL Server：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlcmd <span class="literal">-S</span> localhost <span class="literal">-U</span> sa <span class="literal">-P</span> your_password</span><br><span class="line"><span class="number">1</span>&gt;    <span class="comment">#已登录成功</span></span><br></pre></td></tr></table></figure>
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/archives/6e81849.html'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/archives/ca06d6a5.html>http://example.com/archives/ca06d6a5.html</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-10T11:36:30+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月10日</p>
+  </a>
 </div>
 
-          </div>
         
       
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-  </section>
-  
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/archives/ca06d6a5.html&title=学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库 - 果子小酱&summary=这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
-  
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/archives/ca06d6a5.html&title=学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库 - 果子小酱&summary=这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/archives/ca06d6a5.html&title=学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库 - 果子小酱&summary=这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
 
 
-    
+
+        
+      
+    </div>
+  </div>
+
+
   
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/archives/3ad132bb.html'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>利用OpenCV对图像和视频进行载入和访问</p>
+          <p class='content'>很久都没更新博客了（跪）….前期因为疫情和考研压力，所以就一直咕咕咕
+在家上网课，学习OpenCV，做了一点笔记吧。抽空写博客，仍然更新很慢（大声哭泣）
+
+
+运行平台
+OpenCV 4.2
+VS...</p>
+        </a>
+      
+      
+        <a class='next' href='/archives/6e81849.html'>
+          <p class='title'>学做图书管理系统--使用SQL Server创建并插入数据，建立触发器和存储过程<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>数据库（Database）可以说是前端网站搭建必不可少的部分了。常见的数据库软件有微软的SQL Server和Linux服务器中常见的MySQL两种。
+|ू･ω･` )  
+
+
+在连接数据库之前...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -472,176 +647,28 @@
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">果子小酱</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0"
-            ><div class='name'>学习笔记</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0C"
-            ><div class='name'>C++</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0OpenCV"
-            ><div class='name'>OpenCV</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0Python"
-            ><div class='name'>Python</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0E59BBEE5BDA2E7958CE99DA2"
-            ><div class='name'>图形界面</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE5ADA6E4B9A0E7AC94E8AEB0E695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/" href="/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"
-            id="categoriesE5B08FE5B7A5E585B7"
-            ><div class='name'>小工具</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%9D%82%E8%AE%B0/" href="/categories/%E6%9D%82%E8%AE%B0/"
-            id="categoriesE69D82E8AEB0"
-            ><div class='name'>杂记</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" href="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"
-            id="categoriesE79FA5E8AF86E680BBE7BB93"
-            ><div class='name'>知识总结</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E8%AF%95/" href="/categories/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E8%AF%95/"
-            id="categoriesE79FA5E8AF86E680BBE7BB93E8AEA1E7AE97E69CBAE88083E8AF95"
-            ><div class='name'>计算机考试</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" href="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"
-            id="categoriesE7BD91E7AB99E690ADE5BBBA"
-            ><div class='name'>网站搭建</div><div class='badge'>(2)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85pyodbc"><span class="toc-text">安装pyodbc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85SQL-Server%E7%9A%84ODBC%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">安装SQL Server的ODBC驱动程序和命令行工具</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/CDN/" style="font-size: 14px; color: #999">CDN</a> <a href="/tags/GUI/" style="font-size: 14px; color: #999">GUI</a> <a href="/tags/Hexo/" style="font-size: 14px; color: #999">Hexo</a> <a href="/tags/OpenCV-%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" style="font-size: 17.33px; color: #828282">OpenCV, 图像处理</a> <a href="/tags/OpenMV/" style="font-size: 17.33px; color: #828282">OpenMV</a> <a href="/tags/PyQt/" style="font-size: 14px; color: #999">PyQt</a> <a href="/tags/Python/" style="font-size: 17.33px; color: #828282">Python</a> <a href="/tags/Qt-Designer/" style="font-size: 14px; color: #999">Qt Designer</a> <a href="/tags/SQL-Server/" style="font-size: 14px; color: #999">SQL Server</a> <a href="/tags/VPS/" style="font-size: 14px; color: #999">VPS</a> <a href="/tags/WordPress/" style="font-size: 14px; color: #999">WordPress</a> <a href="/tags/pyodbc/" style="font-size: 14px; color: #999">pyodbc</a> <a href="/tags/%E5%8F%8B%E9%93%BE/" style="font-size: 14px; color: #999">友链</a> <a href="/tags/%E5%9B%BE%E5%BA%8A/" style="font-size: 14px; color: #999">图床</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 14px; color: #999">域名</a> <a href="/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" style="font-size: 20.67px; color: #6c6c6c">思维导图</a> <a href="/tags/%E7%94%B5%E5%8D%8F%E5%AE%98%E7%BD%91/" style="font-size: 14px; color: #999">电协官网</a> <a href="/tags/%E7%94%B5%E8%B5%9B/" style="font-size: 17.33px; color: #828282">电赛</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%9B%E7%BA%A7/" style="font-size: 24px; color: #555">计算机四级</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -651,8 +678,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>利用OpenCV对图像和视频进行载入和访问 - 果子小酱</title>
+  
+    <meta name="keywords" content="OpenCV, 图像处理">
+  
+
+  
+    <meta name="description" content="很久都没更新博客了（跪）….前期因为疫情和考研压力，所以就一直咕咕咕
+在家上网课，学习OpenCV，做了一点笔记吧。抽空写博客，仍然更新很慢（大声哭泣）">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css">
+
+  
+  
+
+  
+
+  
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css'/>
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">果子小酱</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              id="v4getting-started">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              id="faqs">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              id="examples">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              id="contributors">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              id="https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        利用OpenCV对图像和视频进行载入和访问
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C/">C++</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/OpenCV/">OpenCV</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年2月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="利用OpenCV对图像和视频进行载入和访问" data-path="/archives/3ad132bb.html">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <p>很久都没更新博客了（跪）….<strong>前期因为疫情和考研压力，所以就一直<del>咕咕咕</del></strong></p>
+<p>在家上网课，学习OpenCV，做了一点笔记吧。<br>抽空写博客，仍然更新很慢（<del>大声哭泣</del>）</p>
+<a id="more"></a>
+
+<h2 id="运行平台"><a href="#运行平台" class="headerlink" title="运行平台"></a>运行平台</h2><ul>
+<li>OpenCV 4.2</li>
+<li>VS 2019</li>
+</ul>
+<h2 id="图像在内存中的存储和操作"><a href="#图像在内存中的存储和操作" class="headerlink" title="图像在内存中的存储和操作"></a>图像在内存中的存储和操作</h2><h3 id="从图像数据性质推理图像在内存中的存储方式："><a href="#从图像数据性质推理图像在内存中的存储方式：" class="headerlink" title="从图像数据性质推理图像在内存中的存储方式："></a>从图像数据性质推理图像在内存中的存储方式：</h3><blockquote>
+<p>图像数据是多通道：1/3/4通道；<br>像素数据类型：1位，uchar，short，int，float，double等；</p>
+</blockquote>
+<h3 id="OpenCV中的C-Mat类："><a href="#OpenCV中的C-Mat类：" class="headerlink" title="OpenCV中的C++ Mat类："></a>OpenCV中的C++ Mat类：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CV_EXPORTS</span> <span class="title">Mat</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// …大量方法…</span></span><br><span class="line">    ...</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/*! includes several bit-fields:</span></span><br><span class="line"><span class="comment">         - the magic signature</span></span><br><span class="line"><span class="comment">         - continuity flag</span></span><br><span class="line"><span class="comment">         - depth</span></span><br><span class="line"><span class="comment">         - number of channels</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> flags;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! the array dimensionality, &gt;= 2</span></span><br><span class="line">    <span class="keyword">int</span> dims;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! the number of rows and columns or (-1, -1) when the array has more than 2 dimensions</span></span><br><span class="line">    <span class="keyword">int</span> rows, cols;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! pointer to the data</span></span><br><span class="line">    uchar* data;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other members</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>图像在内存中的基本要素：</p>
+</blockquote>
+<p>①列数cols = 宽度，行数rows = 高度，通道数（彩色空间类型），位深度（数据类型：8位无符号8U，32位浮点32F等）；<br>②像素存储区（uchar* data;）</p>
+<blockquote>
+<p>创建Mat矩阵–通过构造函数：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">img</span><span class="params">(Size(<span class="number">320</span>,<span class="number">240</span>), CV_8UC3)</span></span>;`</span><br></pre></td></tr></table></figure>
+<p>宽度(320)，高度(240)，数据类型8U(8位无符号)，3通道</p>
+<blockquote>
+<p>创建Mat矩阵–通过create函数：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mat img;</span><br><span class="line"></span><br><span class="line">img .create(Size(<span class="number">320</span>,<span class="number">240</span>), CV_32FC3);<span class="comment">//32位浮点型</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建载入图像文件：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat img = imread(<span class="string">&quot;lena.jpg&quot;</span>, CV_LOAD_IMAGE_COLOR);</span><br></pre></td></tr></table></figure>
+
+<h3 id="像素数据在内存中的组织方式："><a href="#像素数据在内存中的组织方式：" class="headerlink" title="像素数据在内存中的组织方式："></a>像素数据在内存中的组织方式：</h3><p><strong>PS:内存是顺序排列的字节阵列</strong></p>
+<p><fancybox><img src="https://img.vim-cn.com/3e/ac56d209f474e08b9df75a04231a4547d3e240.jpg" class="lazyload" data-srcset="https://img.vim-cn.com/3e/ac56d209f474e08b9df75a04231a4547d3e240.jpg" srcset="data:image/png;base64,666" alt="img"></fancybox></p>
+<h2 id="通过Mat方法访问图像像素"><a href="#通过Mat方法访问图像像素" class="headerlink" title="通过Mat方法访问图像像素"></a>通过Mat方法访问图像像素</h2><ol>
+<li>3通道24位深度（表达每个通道占用8位）彩色图像像素的访问：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cv::Vec3b pixlsValue; <span class="comment">//==表达这是一个3字节像素数据节点;</span></span><br><span class="line"></span><br><span class="line">pixlsValue = img.at&amp;lt;cv::Vec3b&amp;gt;(y, x);</span><br><span class="line"><span class="comment">//y表达行号；x表达列号；尖括号&lt;...&gt;中的内容是C++模板，指定图像矩阵的数据类型；</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>像素值的修改方法：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pixlsValue.val[<span class="number">0</span>] = xxx;</span><br><span class="line">pixlsValue.val[<span class="number">1</span>] = xxx;</span><br><span class="line">pixlsValue.val[<span class="number">2</span>] = xxx;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改后的像素值返回到存储器：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img.at&lt;cv::Vec3b&gt;(y, x) = pixlsValue；其中，y和x为像素坐标;</span><br></pre></td></tr></table></figure>
+<h2 id="通过C-指针方法访问图像像素"><a href="#通过C-指针方法访问图像像素" class="headerlink" title="通过C++指针方法访问图像像素"></a>通过C++指针方法访问图像像素</h2><ol>
+<li><p>图像行列数<code>Rows</code>和<code>Cols</code>，数据首地址 <code>uchar* data</code>，通道数<code>chaN</code>，每行总字节数byteR可通过矩阵类接口获得；</p>
+</li>
+<li><p>每个像素的字节数<code>byteN= 位深度/8</code>；位深度24位彩色图像每个像素占用3字节；float类型单通道图像每个像素占用4字节；…</p>
+</li>
+<li><p>每行总字节数<code>byteR = 每像素字节数 * 列数 = byteN * Cols</code>;</p>
+</li>
+<li><p>第<code>row</code>行第<code>col</code>列像素向量的地址偏移量（相对像素数据首字节）：</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pixlAddr = row * byteR + col * byteN ；</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>像素向量首字节地址为 <code>(uchar *)&amp;data [pixlAddr]</code>;</p>
+</li>
+<li><p>如果是<code>uchar</code>型图像，则像素首地址为：</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uchar  *pixlPTR = (uchar*) data [pixlAddr];</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>如果是<code>float</code>型图像，则像素首地址为：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> *pixlPTR = (<span class="keyword">float</span>*) data [pixlAddr];</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><p>对于3通道8位（位深度24位）彩色图像(RGB)，则3个彩色通道像素存储位置为：<code>pixlPTR[0] = B</code> 、<code>pixlPTR[1] = G </code>、<code>pixlPTR[2] = R</code>；</p>
+</li>
+<li><p>通过实验可以证明，使用C++指针访问像素，时间开销远低于调用<code>cv::Mat.at()</code>方法；</p>
+</li>
+</ol>
+<h2 id="图像像素访问例程"><a href="#图像像素访问例程" class="headerlink" title="图像像素访问例程"></a>图像像素访问例程</h2><figure class="highlight cpp"><figcaption><span>完整代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;Windows.h&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/core.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/imgproc.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/highgui.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/features2d.hpp&amp;gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _DEBUG</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420d.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> curPathName[<span class="number">384</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> FilePath[<span class="number">384</span>] = <span class="string">&quot;lena.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(curPathName) &gt; <span class="number">0</span>)</span><br><span class="line">         <span class="built_in">sprintf</span>(FilePath, <span class="string">&quot;%s\\lena.jpg&quot;</span>, curPathName); <span class="comment">//图片文件路径</span></span><br><span class="line"></span><br><span class="line">    cv::Mat readImg = cv::imread(FilePath, cv::IMREAD_COLOR); <span class="comment">//读取彩色图片: opencv420的IMREAD_COLOR与之前版本不同</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (readImg.empty())</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;error#41: 未能读取到图片，检查文件是否存在！回车退出！\n图片路径=%s\n&quot;</span>, FilePath);</span><br><span class="line">         fgets(FilePath, <span class="number">127</span>, <span class="built_in">stdin</span>);</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cv::imshow(<span class="string">&quot;readImg&quot;</span>, readImg);<span class="comment">//显示图片，窗口标题为readImg</span></span><br><span class="line">    cv::Mat imgFloat;</span><br><span class="line">    readImg.convertTo(imgFloat, CV_32F);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在C++中，访问矩阵中的像素有两种方法：通过矩阵方法和通过指针；通过指针是最快的访问方法</span></span><br><span class="line">    cv::Vec3b colorValue; uchar greyValue;</span><br><span class="line">    <span class="keyword">int</span> channelNUMS = readImg.channels();</span><br><span class="line"></span><br><span class="line">    uchar *pDATA = readImg.data;         <span class="comment">//为了通过指针访问存储区，我们获取存储区的首指针</span></span><br><span class="line">    <span class="keyword">int</span> dataSTEP = readImg.step1();  <span class="comment">//注意，当图像列数cols=512，3通道时，dataSTEP值为512 * 3 = 1536；</span></span><br><span class="line">    <span class="keyword">int</span> dataSTEP2 = imgFloat.step1();    <span class="comment">//注意，当图像列数cols=512，3通道时，dataSTEP值为512 * 3 = 1536；</span></span><br><span class="line"></span><br><span class="line">    int64 timeSTART = cv::getTickCount();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; imgFloat.rows / <span class="number">2</span>; i++) &#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j&lt; readImg.cols; j++) &#123;</span><br><span class="line">             <span class="comment">//我们使用条件编译开关来控制使用那一段代码</span></span><br><span class="line">             <span class="meta">#<span class="meta-keyword">ifndef</span> ACCESS_IAMGE_BY_PTR      <span class="comment">//使用Mat的At()方法访问像素：花费时间几乎是指针方法的10倍；</span></span></span><br><span class="line"></span><br><span class="line">             <span class="keyword">switch</span> (channelNUMS)</span><br><span class="line">             &#123;</span><br><span class="line">             <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                  readImg.at&amp;lt;uchar&amp;gt;(i, j) = <span class="number">255</span> - readImg.at&amp;lt;uchar&amp;gt;(i, j);</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">             <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                  colorValue = readImg.at&amp;lt;cv::Vec3b&amp;gt;(i, j);</span><br><span class="line">                  colorValue.val[<span class="number">0</span>] = <span class="number">255</span> - colorValue.val[<span class="number">0</span>];</span><br><span class="line">                  colorValue.val[<span class="number">1</span>] = <span class="number">255</span> - colorValue.val[<span class="number">1</span>];</span><br><span class="line">                  colorValue.val[<span class="number">2</span>] = <span class="number">255</span> - colorValue.val[<span class="number">2</span>];</span><br><span class="line">                  readImg.at&amp;lt;cv::Vec3b&amp;gt;(i, j) = colorValue;</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">             &#125;</span><br><span class="line"></span><br><span class="line">             <span class="meta">#<span class="meta-keyword">else</span>              <span class="comment">//使用指针方法访问像素：花费时间几乎是Mat的At()方法的1/10倍；</span></span></span><br><span class="line">             <span class="keyword">if</span> (pDATA[i * dataSTEP * <span class="keyword">sizeof</span>(uchar) + j * channelNUMS + <span class="number">0</span>] &gt; <span class="number">200</span> &amp;&amp;</span><br><span class="line">                  pDATA[i * dataSTEP * <span class="keyword">sizeof</span>(uchar) + j * channelNUMS + <span class="number">1</span>] &gt; <span class="number">200</span> &amp;&amp;</span><br><span class="line">                  pDATA[i * dataSTEP * <span class="keyword">sizeof</span>(uchar) + j * channelNUMS + <span class="number">2</span>] &gt; <span class="number">200</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                  pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 0] = 64;</span><br><span class="line">                  pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 1] = 64;</span><br><span class="line">                  pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 2] = 0;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">             &#123;</span><br><span class="line">                  pDATA[i * dataSTEP * <span class="keyword">sizeof</span>(uchar) + j * channelNUMS + <span class="number">0</span>] = <span class="number">255</span> - pDATA[i * dataSTEP * <span class="keyword">sizeof</span>(uchar) + j * channelNUMS + <span class="number">0</span>];</span><br><span class="line">                  pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 1] = 255 - pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 1];</span><br><span class="line">                  pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 2] = 255 - pDATA[i * dataSTEP * sizeof(uchar) + j * channelNUMS + 2];</span><br><span class="line">             &#125;</span><br><span class="line">         <span class="meta">#<span class="meta-keyword">endif</span> ACCESS_IAMGE_BY_PTR</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int64 timeEND = cv::getTickCount(); <span class="comment">//处理结束时间</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> usingTime = (<span class="keyword">double</span>)(timeEND - timeSTART) / (<span class="keyword">double</span>)cv::getTickFrequency();<span class="comment">//统计矩阵操作花费的时间，单位ms；</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;INFO#128: 图像处理耗时：%.6f 秒\n&quot;</span>, usingTime);</span><br><span class="line"></span><br><span class="line">    cv::imshow(<span class="string">&quot;Nagtive Film&quot;</span>, readImg);</span><br><span class="line">    cv::imwrite(<span class="string">&quot;Nagtive_Film.bmp&quot;</span>, readImg);       <span class="comment">//保存处理后的图像为bmp文件</span></span><br><span class="line">    cv::waitKey();<span class="comment">//等待按下键盘，这是程序退出前让显示窗得以被显示的方法！</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>VS 2019实际运行效果如下：</p>
+</blockquote>
+<p><fancybox><img src="https://i.loli.net/2020/03/01/gcSkP8OZIwGhQRU.png" class="lazyload" data-srcset="https://i.loli.net/2020/03/01/gcSkP8OZIwGhQRU.png" srcset="data:image/png;base64,666" alt="WOQ9@B(2}AH0A7L@J0GB9S1.png"></fancybox></p>
+<h2 id="视频图像的特点"><a href="#视频图像的特点" class="headerlink" title="视频图像的特点"></a>视频图像的特点</h2><ol>
+<li>视频源：摄像头和视频文件；</li>
+<li>视频图像格式：AVI、VCD、SVCD、DVD、MPG、WMV、RM、RMVB、MOV、MP4、MPEG4、3GP、H264等等。</li>
+<li>视频图像在硬盘中存储要求更高压缩比，压缩、解压缩处理的计算开销较大；</li>
+<li>无论什么格式视频图像，载入到内存后将被转换为像素矩阵，并存储到内存中。此时，像素访问方法将与静止图像没有差异。</li>
+</ol>
+<h3 id="通过C-调用OpenCV库载入图像"><a href="#通过C-调用OpenCV库载入图像" class="headerlink" title="通过C++调用OpenCV库载入图像"></a>通过C++调用OpenCV库载入图像</h3><blockquote>
+<p>这里使用C++和OpenCV库将视频载入内存，并将视频图像记录到另一个视频文件中</p>
+</blockquote>
+<p>可以发现：  </p>
+<ul>
+<li>视频是一个图像序列；</li>
+<li>图像序列中的每幅图像仍以像素矩阵存储在内存中，访问方法与静止图像相同。</li>
+<li>使用OpenCV记录的视频文件，仅仅存储了经过编码后的视频流数据，还不符合视频文件格式标准，不能使用常规的播放器来播放，需要使用一些特殊的视频播放器（例如VLC）来播放。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &quot;stdafx.h&quot;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;stdio.h&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;iostream&amp;gt;   <span class="comment">// for standard I/O</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;Windows.h&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/core.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/imgproc.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/highgui.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/features2d.hpp&amp;gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> &amp;lt;opencv2/video.hpp&amp;gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _DEBUG0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420d.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;opencv_world420.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> curPathName[<span class="number">384</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//==【01】== 打开视频文件或摄像头</span></span><br><span class="line">    <span class="keyword">char</span> FilePath[<span class="number">384</span>] = <span class="string">&quot;HighWay_Video_001.Avi&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(curPathName) &gt; <span class="number">0</span>)</span><br><span class="line">         <span class="built_in">sprintf</span>(FilePath, <span class="string">&quot;%s\\HighWay_Video_001.Avi&quot;</span>, curPathName);   <span class="comment">//图片文件路径</span></span><br><span class="line">                                                             <span class="comment">//==【01】== 视频输入选择和打开：摄像头或视频文件</span></span><br><span class="line">         cv::String  path = FilePath;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(argc &gt; <span class="number">1</span>)</span><br><span class="line">             path = argv[<span class="number">1</span>];        <span class="comment">//可通过命令行第二个参数指定视频文件名</span></span><br><span class="line">         <span class="comment">//path = &quot;&quot;;              //====&gt;&gt;&gt;&gt;如果启用此行，将从摄像头中读取视频图像&lt;&lt;&lt;&lt;====</span></span><br><span class="line">         cv::VideoCapture cap; <span class="comment">//VideoCapture类实例化，使用缺省摄像头</span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(path.length() == <span class="number">0</span>)</span><br><span class="line">             cap.open(<span class="number">0</span>);       <span class="comment">//打开第一个摄像头</span></span><br><span class="line">         <span class="keyword">else</span></span><br><span class="line">             cap.open(path);  <span class="comment">//打开视频文件</span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(!cap.isOpened()) <span class="comment">// check if we succeeded</span></span><br><span class="line">             <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    cv::Mat frame, greyFrame;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//==【02】== 视频记录类实例化</span></span><br><span class="line">         cv::VideoWriter outputVideo;                                        <span class="comment">// Open the output</span></span><br><span class="line">         <span class="keyword">int</span> saveAVIenable = <span class="number">0</span>;            <span class="comment">//非0时记录视频</span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(saveAVIenable)&#123;</span><br><span class="line">             <span class="keyword">bool</span> rtn = outputVideo.open(<span class="string">&quot;Result003.avi&quot;</span>, cv::VideoWriter::fourcc(<span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;P&#x27;</span>, <span class="string">&#x27;G&#x27;</span>), <span class="number">10</span>,</span><br><span class="line">                 cv::Size((<span class="keyword">int</span>)cap.get(cv::CAP_PROP_FRAME_WIDTH),  (<span class="keyword">int</span>)cap.get(cv::CAP_PROP_FRAME_HEIGHT) ) , <span class="literal">true</span>);</span><br><span class="line">             <span class="keyword">if</span>(!rtn)</span><br><span class="line">                  <span class="keyword">return</span> <span class="number">-2</span>;</span><br><span class="line">             &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//==【03】== 创建一个运动视频背景提取对象：分离背景和运动对象： 暂时未使用！</span></span><br><span class="line">         cv::Ptr&lt;cv::BackgroundSubtractorMOG2&gt; bgsubtractor= cv::createBackgroundSubtractorMOG2();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//==【04】== 命名两个显示窗口</span></span><br><span class="line">         cv::namedWindow(<span class="string">&quot;SRC&quot;</span>, <span class="number">0</span>);</span><br><span class="line">         cv::namedWindow(<span class="string">&quot;GREY&quot;</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//==【05】== 循环读取视频</span></span><br><span class="line">         <span class="keyword">int</span> frameNums  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(;;)</span><br><span class="line">         &#123;</span><br><span class="line">         <span class="keyword">double</span> t1 = (<span class="keyword">double</span>)cv::getCPUTickCount();</span><br><span class="line"></span><br><span class="line">         cap.read(frame);     <span class="comment">//读取一个视频帧</span></span><br><span class="line">         <span class="keyword">if</span>(frame.empty())</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(saveAVIenable)</span><br><span class="line">             outputVideo.write(frame);   <span class="comment">//写视频文件</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">//==&gt;&gt; 取视频帧frame的一个矩形区，转换为灰度图像，存储到greyFrame</span></span><br><span class="line">         cv::cvtColor(frame(cv::Rect(<span class="number">0</span>, <span class="number">150</span>, frame.cols, frame.rows - <span class="number">150</span>)), greyFrame, cv::COLOR_RGB2GRAY);</span><br><span class="line">         <span class="comment">//==&gt;&gt; 将图像greyFrame的长宽分别缩小到1/2</span></span><br><span class="line">         cv::resize(greyFrame, greyFrame, cv::Size(greyFrame.cols/<span class="number">2</span>, greyFrame.rows/<span class="number">2</span>));</span><br><span class="line">         <span class="comment">//==&gt;&gt; 使用7*7卷积窗，平滑灰度图像greyFrame</span></span><br><span class="line">         cv::blur(greyFrame, greyFrame, cv::Size(<span class="number">7</span>,<span class="number">7</span>));</span><br><span class="line">         <span class="comment">// ==&gt;&gt; 计算处理时间</span></span><br><span class="line">         <span class="keyword">double</span> t2 = (<span class="keyword">double</span>)cv::getCPUTickCount();</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;Line74 Video Play Delta Time = %.3fms\n&quot;</span>, <span class="number">1e0</span> * (t2 - t1)/(<span class="keyword">double</span>)cv::getTickFrequency());</span><br><span class="line"></span><br><span class="line">         <span class="comment">// ==&gt;&gt; 显示处理结果</span></span><br><span class="line">         imshow(<span class="string">&quot;SRC&quot;</span>, frame);</span><br><span class="line">         <span class="keyword">if</span>(!greyFrame.empty())</span><br><span class="line">             imshow(<span class="string">&quot;GREY&quot;</span>, greyFrame);</span><br><span class="line"></span><br><span class="line">         <span class="comment">// ==&gt;&gt; 按下键盘q退出</span></span><br><span class="line">         <span class="keyword">int</span> keycode = cv::waitKey(<span class="number">30</span>);</span><br><span class="line">         <span class="keyword">if</span>( keycode == <span class="string">&#x27;q&#x27;</span>)</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">         frameNums++;</span><br><span class="line">         &#125;<span class="comment">//for</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(saveAVIenable)</span><br><span class="line">         outputVideo.release();</span><br><span class="line">    cap.release();</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>VS 2019实际运行效果如下：</p>
+</blockquote>
+<p><fancybox><img src="https://i.loli.net/2020/03/06/3I7kzTpAmDMdueb.png" class="lazyload" data-srcset="https://i.loli.net/2020/03/06/3I7kzTpAmDMdueb.png" srcset="data:image/png;base64,666" alt="4)LH$EDIZVJNC((AMUD1TZC.png"></fancybox></p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/archives/3ad132bb.html>http://example.com/archives/3ad132bb.html</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-10T11:36:30+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月10日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenCV-%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>OpenCV, 图像处理</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/archives/3ad132bb.html&title=利用OpenCV对图像和视频进行载入和访问 - 果子小酱&summary=很久都没更新博客了（跪）….前期因为疫情和考研压力，所以就一直咕咕咕
+在家上网课，学习OpenCV，做了一点笔记吧。抽空写博客，仍然更新很慢（大声哭泣）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/archives/3ad132bb.html&title=利用OpenCV对图像和视频进行载入和访问 - 果子小酱&summary=很久都没更新博客了（跪）….前期因为疫情和考研压力，所以就一直咕咕咕
+在家上网课，学习OpenCV，做了一点笔记吧。抽空写博客，仍然更新很慢（大声哭泣）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/archives/3ad132bb.html&title=利用OpenCV对图像和视频进行载入和访问 - 果子小酱&summary=很久都没更新博客了（跪）….前期因为疫情和考研压力，所以就一直咕咕咕
+在家上网课，学习OpenCV，做了一点笔记吧。抽空写博客，仍然更新很慢（大声哭泣）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/archives/aca9eb9b.html'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>开往-Travelling</p>
+          <p class='content'>
+互联网将人与人之间的距离大大减小，却还是形成了大大小小的孤岛。只有熟人间才知道彼此，而陌生人永远只能是陌生人。
+
+
+Travelling
+茫茫星辰中，去寻找不一样的、别致的星球。
+
+这就是开往...</p>
+        </a>
+      
+      
+        <a class='next' href='/archives/ca06d6a5.html'>
+          <p class='title'>学做图书管理系统--使用pyodbc和PyQt5连接前台GUI和后台SQL Server数据库<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>这里主要记录了使用Python语言连接SQL Server的主要步骤和方法。 
+
+
+在连接数据库之前，需要确保电脑上有以下环境和软件：
+
+（必备）任意一种数据库（这里选择SQL Server）
+...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%B9%B3%E5%8F%B0"><span class="toc-text">运行平台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">图像在内存中的存储和操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E6%80%A7%E8%B4%A8%E6%8E%A8%E7%90%86%E5%9B%BE%E5%83%8F%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">从图像数据性质推理图像在内存中的存储方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenCV%E4%B8%AD%E7%9A%84C-Mat%E7%B1%BB%EF%BC%9A"><span class="toc-text">OpenCV中的C++ Mat类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%8F%E7%B4%A0%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">像素数据在内存中的组织方式：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87Mat%E6%96%B9%E6%B3%95%E8%AE%BF%E9%97%AE%E5%9B%BE%E5%83%8F%E5%83%8F%E7%B4%A0"><span class="toc-text">通过Mat方法访问图像像素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87C-%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E8%AE%BF%E9%97%AE%E5%9B%BE%E5%83%8F%E5%83%8F%E7%B4%A0"><span class="toc-text">通过C++指针方法访问图像像素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%83%8F%E7%B4%A0%E8%AE%BF%E9%97%AE%E4%BE%8B%E7%A8%8B"><span class="toc-text">图像像素访问例程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E5%9B%BE%E5%83%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">视频图像的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87C-%E8%B0%83%E7%94%A8OpenCV%E5%BA%93%E8%BD%BD%E5%85%A5%E5%9B%BE%E5%83%8F"><span class="toc-text">通过C++调用OpenCV库载入图像</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="利用OpenCV对图像和视频进行载入和访问";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "",
+      appKey: "",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+
+  
+    
+<script src="/js/search.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+(function ($) {
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+})(jQuery);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+  
+  <script src='https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.2/js/instantclick-1.2.2.js' type='module'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/baidu_js_push.js'></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js'></script>
+
+  <script src='https://v1.hitokoto.cn/?encode=js&select=%23hitokoto' defer></script>
+
+  <script src='https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/site_time.js'></script>
+
+
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+<!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <div id="loading-bar-wrapper"><script>NProgress.configure({parent:"#loading-bar-wrapper",trickleSpeed: 100})</script></div>
+    <script>
+      window.ShowLoading = function() {
+        NProgress.start();
+      };
+      window.HideLoading = function() {
+        NProgress.done();
+      }
+    </script>
+  
+</div>
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+      window.ShowLoading();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+      window.HideLoading();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.HideLoading();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>
