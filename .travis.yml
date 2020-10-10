@@ -1,15 +1,16 @@
 sudo: false
 language: node_js
-node_js:
-  - 12
+node_js: stable
 cache: npm
 branches:
   only:
     - master # build master branch only
 script:
+  - hexo clean
   - hexo generate
 deploy:
   provider: pages
+  local_dir: public # 需要推送到Github的静态文件目录   
   skip-cleanup: true
   github-token: $GH_TOKEN
   keep-history: true
