@@ -67,3 +67,26 @@ cover:
       img: https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg
       url: https://github.com/volantis-x/hexo-theme-volantis/
 ############################### Cover ############################### > end
+
+comments:
+  title: <i class='fas fa-comments'></i> 评论
+  subtitle:
+  service: valine # valine, minivaline, disqus, gitalk, vssue, livere, isso, hashover
+  # Valine
+  # https://valine.js.org/
+  valine:
+    appId: NUIvWmBVy0NYRGpzYbzFaK5b-gzGzoHsz # your appId
+    appKey: hpOy65rB00YTyHxaVmx93woY # your appKey
+    # js: https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js
+    path: # 全局评论地址
+    placeholder: 快来评论吧~  # 评论占位提示
+    meta: nick,mail,link # valine comment header info
+    requiredFields: ['nick','mail']
+    enableQQ: true # Unstable avatar link
+    recordIP: false # Record commenter IP
+    avatar: robohash # gravatar style https://valine.js.org/avatar
+    pageSize: 10 # comment list page size
+    lang: zh-cn
+    highlight: true
+    visitor: true
+    mathJax: false
