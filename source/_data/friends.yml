@@ -2,7 +2,7 @@
   items:
   - title: Sakura-小窝    # 博客名
     avatar: https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/favicon.jpg  # 头像链接
-    url: https://blog,cwxyr.me/     # 博客链接
+    url: https://blog.cwxyr.me/     # 博客链接
     screenshot: https://cdn2.sublimerui.top/2020/10/11/12c03a4b7bb03.png
     description: 博主的生活站
   #- title: 果子酱的分类栏    # 博客名

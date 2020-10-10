@@ -38,7 +38,7 @@ music:
 >**名称：** XXX 【博客名或昵称均可】  
 >**头像链接：** <https://your/avatar/picture/> 【请使用**https**加密协议开头】  
 >**博客地址：** <https://your/personal/blog/> 【请使用**https**加密协议开头】  
->**标签：** 标签/标签2 【这里可以写希望我贴上的标签喔~ 如：Web/Java/C++】  
+>**标签/描述：** 标签/标签2 【这里可以写希望我贴上的标签喔~ 如：Web/Java/C++】  
 
 
 
@@ -46,7 +46,7 @@ music:
 >**名称：** 果子小酱  
 >**头像链接：** <https://cdn.jsdelivr.net/gh/cwxyr/mycdn@master/favicon_new.ico>  
 >**博客地址：** <https://sublimerui.top>  
->**标签：** Python/Web/嵌入式  
+>**描述：** 茫茫人海中，遇见你。
 
 ---
 
