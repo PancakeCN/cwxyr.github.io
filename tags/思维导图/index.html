@@ -57,6 +57,12 @@
   
 
   
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
+
+    
+  
   
     
 <link rel="stylesheet" href="/css/style.css">
@@ -1131,6 +1137,11 @@
 
 
       
+        <div class="webinfo-item">
+          <div>本站总字数：</div>
+          <div>38.5k 字</div>
+        </div>
+      
 
       
         <div class="webinfo-item">
@@ -1154,7 +1165,7 @@
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Mon Oct 12 2020 17:47:27 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update" style="display: none;">Mon Oct 12 2020 17:53:51 GMT+0000 (Coordinated Universal Time)</div>
             <div id="last-update-show">2020-10-12 日</div>
           
         </div>
@@ -1715,7 +1726,18 @@ const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
 
 
 
+  
+<script src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/comment_typing.js"></script>
 
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
 
 
 
@@ -2132,6 +2154,10 @@ document.addEventListener("pjax:success", listennSidebarTOC);
         
 		  Pjax_backstretch()
         
+        
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
         
         
         
