@@ -115,7 +115,7 @@ cover:
 ############################### Sidebar ############################### > start
 sidebar:
   # 主页、分类、归档等独立页面
-  for_page: [blogger, notice, mylist, category, tagcloud, webinfo]
+  for_page: [blogger, notice, mylist, category, tagcloud, webinfo, visitors_global]
   # layout: docs/post 这类文章页面
   for_post: [toc]
   # 侧边栏组件库
@@ -221,6 +221,16 @@ sidebar:
           friendlyShow: true    # 更友好的时间显示
           text: '最后活动时间：'
           unit: '日'
+    visitors_global:
+      class: text
+      display: [desktop] # [desktop, mobile]
+      header:
+        icon: fas fa-award
+        title: 访客地球
+        # url: https://github.com/xaoxuu/
+      content:
+        # - '<center><img src="https://i.loli.net/2020/02/11/s1ayTzAfJF5DQMt.png"></center>'
+        - '<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5vaufw69zyz&m=7&c=ff0000&cr1=ffffff&f=times_new_roman&l=33" async="async"></script>'
 
     notice:
       class: text
