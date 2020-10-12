@@ -293,8 +293,8 @@ site_footer:
 
 ################################################################################################
 
-  plugins:
-  ################ required plugins ################
+plugins:
+################ required plugins ################
   # jquery
   jquery: https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js
   # fontawesome
