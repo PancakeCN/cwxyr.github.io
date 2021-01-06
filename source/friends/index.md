@@ -8,9 +8,7 @@ music:
   server: netease
   id: 29480187
 
-#  - group: 疑似出问题鸟=-=
-#    icon: fas fa-info-circle
-#    items:
+comments: false
 
 ---
 
@@ -20,5 +18,7 @@ music:
 
 <!-- more -->
 
-**原友链页已经整合啦~**
+**原友链页已经整合到新的地方啦~本页面将会在2周内消失喔~**
+
 **新友链页指路：** <https://blog.moej.cn/links.html>
+
