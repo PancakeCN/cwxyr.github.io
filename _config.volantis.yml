@@ -385,8 +385,9 @@ plugins:
     duration: 15000       # Duration (ms)
     fade: 1500            # fade duration (ms) (Not more than 1500)
     images:               # For personal use only. At your own risk if used for commercial purposes !!!
-      - https://cdn2.sublimerui.top/2020/10/11/00ed4f7376d3b.png
-      - https://cdn2.sublimerui.top/2020/09/25/4fd80788ed093.png
+      - https://cdn2.sublimerui.top/2021/01/07/7a34464953c23.jpg
+      # - https://cdn2.sublimerui.top/2020/10/11/00ed4f7376d3b.png
+      # - https://cdn2.sublimerui.top/2020/09/25/4fd80788ed093.png
       #- https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg
       #- https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg
       #- https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg
