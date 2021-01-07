@@ -14,7 +14,7 @@ navbar:
       url: message_board/
     - name: 友人帐
       icon: fas fa-link
-      url: friends/
+      url: https://blog.moej.cn/links.html
       rel: nofollow
     - name: 关于我
       icon: fas fa-info-circle
@@ -125,7 +125,7 @@ sidebar:
     blogger:
       class: blogger
       display: [desktop, mobile] # [desktop, mobile]
-      avatar: https://cdn2.sublimerui.top/2021/01/03/5db7a51e823a6.ico
+      avatar: https://cdn2.sublimerui.top/2020/10/11/b0f0cc056bb52.png
       shape: rectangle # circle, rectangle
       url: /about/
       title:
@@ -252,7 +252,7 @@ sidebar:
         title: 博主的小天地
       rows:
         - name: 生活站-Sakura
-          url: https://blog.cwxyr.me
+          url: https://blog.moej.cn
         - name: Moe-Fan图床
           url: https://picture.moefan.icu/
 
