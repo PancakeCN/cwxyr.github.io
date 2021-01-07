@@ -11,7 +11,7 @@ navbar:
       url: /
     - name: 留言板
       icon: fa fa-sticky-note
-      url: message_board/
+      url: https://blog.moej.cn/inbox.html
     - name: 友人帐
       icon: fas fa-link
       url: https://blog.moej.cn/links.html
