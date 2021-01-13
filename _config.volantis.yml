@@ -463,7 +463,7 @@ plugins:
   darkmodejs:
     enable:
     js: https://cdn.jsdelivr.net/npm/darkmode-js@1.5/lib/darkmode-js.min.js
-    button: button # button 使用默认或自行开发
+    button: # button 使用默认或自行开发
       enable: true
       left: '16px'
       bottom: '32px'
