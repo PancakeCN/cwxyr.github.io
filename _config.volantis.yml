@@ -295,7 +295,7 @@ site_footer:
       url: https://github.com/cwxyr
     - icon: fas fa-headphones-alt
       url: https://music.163.com/#/user/home?id=299199250
-  copyright: '[Copyright © 2017-2020 Sublime.&&果子酱](https://sublimerui.top)'
+  copyright: '[Copyright © 2019-2021 Sublime.&&果子酱](https://sublimerui.top)'
   # You can add your own property here. (Support markdown, for example: br: '<br>')
   br: '<br>'
   motto: '**你一定要努力，才能和更好的人相遇**'
@@ -385,7 +385,7 @@ plugins:
     duration: 15000       # Duration (ms)
     fade: 1500            # fade duration (ms) (Not more than 1500)
     images:               # For personal use only. At your own risk if used for commercial purposes !!!
-      - https://cdn2.sublimerui.top/2021/01/07/7a34464953c23.jpg
+      - https://cdn2.sublimerui.top/2021/01/13/faf329dae7fff.jpg
       # - https://cdn2.sublimerui.top/2020/10/11/00ed4f7376d3b.png
       # - https://cdn2.sublimerui.top/2020/09/25/4fd80788ed093.png
       #- https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg
@@ -463,7 +463,7 @@ plugins:
   darkmodejs:
     enable:
     js: https://cdn.jsdelivr.net/npm/darkmode-js@1.5/lib/darkmode-js.min.js
-    button: # button 使用默认或自行开发
+    button: button # button 使用默认或自行开发
       enable: true
       left: '16px'
       bottom: '32px'
